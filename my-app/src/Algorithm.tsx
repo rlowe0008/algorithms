@@ -23,6 +23,7 @@ import DijkstrasComplexity from './Algorithms/Dijkstras/Complexity';
 import DijkstrasProof from './Algorithms/Dijkstras/Proof';
 import Dijkstras from './Algorithms/Dijkstras/Implementation';
 import GeneralMSTExplanation from './Algorithms/GeneralMST/Explanation';
+import GeneralMSTProof from './Algorithms/GeneralMST/Proof';
 
 interface Props {
   selectedAlgorithm: Pages;
@@ -88,10 +89,10 @@ const descriptors: AlgorithmDescriptorSet = {
     name: "General MST Algorithm",
     description: "A generic algorithm for finding the Minimum Spanning Tree of a graph.",
     explanation: <GeneralMSTExplanation />,
-    complexity: String.raw`N/A`,
+    complexity: "N/A",
     complexityProof: undefined,
-    correctnessProof: "TODO",
-    pseudocode: "TODO",
+    correctnessProof: <GeneralMSTProof />,
+    pseudocode: String.raw`Greedy algorithm: Apply the red and blue rules (in an arbitrary, nondeterministic order) until all edges are coloured. The blue edges form an MST. We can stop once $\mid V \mid-1$ edges are coloured blue, since any MST has $\mid V \mid-1$ edges.`,
     algorithm: undefined
   },
 };
@@ -120,7 +121,7 @@ class Algorithm extends React.Component<Props> {
         }
         <h3>Proof of correctness</h3>
         { selectedDescriptor.correctnessProof }
-        <h3>Demo</h3>
+        { selectedDescriptor.algorithm ? <h3>Demo</h3> : <></> }
         { selectedDescriptor.algorithm }
       </div>
     );

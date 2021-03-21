@@ -1,6 +1,8 @@
 import React from 'react';
+import BlueRule from '../Common/BlueRule';
 import CyclesCutsets from '../Common/CyclesCutsets';
 import MinimumSpanningTree from '../Common/MinimumSpanningTree';
+import RedRule from '../Common/RedRule';
 
 class GeneralMSTExplanation extends React.Component {
 
@@ -9,8 +11,8 @@ class GeneralMSTExplanation extends React.Component {
       <div>
         <MinimumSpanningTree />
         <CyclesCutsets />
-        - Red rule
-        - Blue rule
+        <RedRule />
+        <BlueRule />
       </div>
     );
   }
