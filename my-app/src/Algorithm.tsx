@@ -2,15 +2,27 @@ import React from 'react';
 import { Pages } from './App';
 
 // Import algorithms
-import Prims from './Algorithms/Prims';
-import Kruskals from './Algorithms/Kruskals';
 import IntervalScheduling from './Algorithms/IntervalScheduling/Implementation';
-import WeightedIntervalScheduling from './Algorithms/WeightedIntervalScheduling';
 import IntervalSchedulingComplexity from './Algorithms/IntervalScheduling/Complexity';
 import IntervalSchedulingPseudocode from './Algorithms/IntervalScheduling/Pseudocode';
 import IntervalSchedulingExplanation from './Algorithms/IntervalScheduling/Explanation';
 import $ from './Math';
 import IntervalSchedulingProof from './Algorithms/IntervalScheduling/Proof';
+import IntervalPartitioningExplanation from './Algorithms/IntervalPartitioning/Explanation';
+import IntervalPartitioningPseudocode from './Algorithms/IntervalPartitioning/Pseudocode';
+import IntervalPartitioningComplexity from './Algorithms/IntervalPartitioning/Complexity';
+import IntervalPartitioningProof from './Algorithms/IntervalPartitioning/Proof';
+import IntervalPartitioning from './Algorithms/IntervalPartitioning/Implementation';
+import MinimisingLatenessExplanation from './Algorithms/MinimisingLateness/Explanation';
+import MinimisingLatenessPseudocode from './Algorithms/MinimisingLateness/Pseudocode';
+import MinimisingLatenessProof from './Algorithms/MinimisingLateness/Proof';
+import MinimisingLateness from './Algorithms/MinimisingLateness/Implementation';
+import DijkstrasExplanation from './Algorithms/Dijkstras/Explanation';
+import DijkstrasPseudocode from './Algorithms/Dijkstras/Pseudocode';
+import DijkstrasComplexity from './Algorithms/Dijkstras/Complexity';
+import DijkstrasProof from './Algorithms/Dijkstras/Proof';
+import Dijkstras from './Algorithms/Dijkstras/Implementation';
+import GeneralMSTExplanation from './Algorithms/GeneralMST/Explanation';
 
 interface Props {
   selectedAlgorithm: Pages;
@@ -21,9 +33,10 @@ type AlgorithmDescriptor = {
   description: string;
   explanation: string | JSX.Element;
   complexity: string;
-  complexityProof: string | JSX.Element;
+  complexityProof: string | JSX.Element | undefined;
   correctnessProof: string | JSX.Element;
   pseudocode: string | JSX.Element;
+  algorithm: JSX.Element | undefined;
 }
 
 interface AlgorithmDescriptorSet {
@@ -31,72 +44,64 @@ interface AlgorithmDescriptorSet {
 }
 
 const descriptors: AlgorithmDescriptorSet = {
-  'interval scheduling': {
+  'interval-scheduling': {
     name: "Earliest-finish-time-first for interval scheduling",
     description: "There is a set of items where each one occupies some interval, each with a start time and finish time. Items are compatible if they do not overlap. Find the maximum subset of mutually-compatible items.",
     explanation: <IntervalSchedulingExplanation />,
     complexity: String.raw`O(n \log n)`,
     complexityProof: <IntervalSchedulingComplexity />,
     correctnessProof: <IntervalSchedulingProof />,
-    pseudocode: <IntervalSchedulingPseudocode />
-  }
+    pseudocode: <IntervalSchedulingPseudocode />,
+    algorithm: <IntervalScheduling />
+  },
+  'interval-partitioning': {
+    name: "Earliest-start-time-first for interval partitioning",
+    description: "There is a set of items where each one occupies some interval, each with a start time and finish time. Partition the set of items such that no two items overlap using the minimum number of rows.",
+    explanation: <IntervalPartitioningExplanation />,
+    complexity: String.raw`O(n \log n)`,
+    complexityProof: <IntervalPartitioningComplexity />,
+    correctnessProof: <IntervalPartitioningProof />,
+    pseudocode: <IntervalPartitioningPseudocode />,
+    algorithm: <IntervalPartitioning />
+  },
+  'minimising-lateness': {
+    name: "Earliest-deadline-first for minimising lateness",
+    description: "We have a single resource that can complete jobs. We need to schedule jobs for this resource to minimise the maximum lateness across the jobs.",
+    explanation: <MinimisingLatenessExplanation />,
+    complexity: String.raw`O(n \log n)`,
+    complexityProof: "This algorithm runs entirely on the basis of scheduling jobs that need to finished sooner. The initial sort is the most complex part.",
+    correctnessProof: <MinimisingLatenessProof />,
+    pseudocode: <MinimisingLatenessPseudocode />,
+    algorithm: <MinimisingLateness />
+  },
+  'dijkstras': {
+    name: "Dijkstra's algorithm for shortest paths",
+    description: "Given a directed graph with no negative edges, find the shortest path between some source node and all other nodes in the graph.",
+    explanation: <DijkstrasExplanation />,
+    complexity: String.raw`O((e + v) \log v)`,
+    complexityProof: <DijkstrasComplexity />,
+    correctnessProof: <DijkstrasProof />,
+    pseudocode: <DijkstrasPseudocode />,
+    algorithm: <Dijkstras />
+  },
+  'general-mst': {
+    name: "General MST Algorithm",
+    description: "A generic algorithm for finding the Minimum Spanning Tree of a graph.",
+    explanation: <GeneralMSTExplanation />,
+    complexity: String.raw`N/A`,
+    complexityProof: undefined,
+    correctnessProof: "TODO",
+    pseudocode: "TODO",
+    algorithm: undefined
+  },
 };
 
 class Algorithm extends React.Component<Props> {
 
   render() {
     // Lookup algorithm descriptor for page
-    let selectedDescriptor: AlgorithmDescriptor | undefined;
-    let algorithmComponent: JSX.Element | undefined;
-
-    const adjacencyList = {
-      1: [2, 3, 5],
-      2: [1, 3, 4, 5],
-      3: [1, 2, 4],
-      4: [2, 3, 5],
-      5: [1, 2, 4]
-    };
-    const edgeWeightsList = [
-      { primaryVertex: 1, secondaryVertex: 2, weight: 1 },
-      { primaryVertex: 1, secondaryVertex: 3, weight: -4 }, //-4
-      { primaryVertex: 1, secondaryVertex: 5, weight: 3 },
-      { primaryVertex: 2, secondaryVertex: 3, weight: 2 },
-      { primaryVertex: 2, secondaryVertex: 4, weight: -2 }, //-2
-      { primaryVertex: 2, secondaryVertex: 5, weight: -3 }, //-3
-      { primaryVertex: 3, secondaryVertex: 4, weight: 4 },
-      { primaryVertex: 4, secondaryVertex: 5, weight: -1 } //-1
-    ];
-
-    const weightedJobsList = [
-      { id: 1, job: 0, weight: 2 },
-      { id: 2, job: 20, weight: 1 },
-      { id: 3, job: 30, weight: 4 },
-      { id: 4, job: 40, weight: 3 },
-      { id: 5, job: 60, weight: 3 },
-      { id: 6, job: 70, weight: 4 },
-      { id: 7, job: 100, weight: 4 },
-    ];
-
-    switch (this.props.selectedAlgorithm) {
-      case Pages.Prims:
-        selectedDescriptor = descriptors['prims'];
-        algorithmComponent = <Prims adjacencyList={adjacencyList} edgeWeightsList={edgeWeightsList} />;
-        break;
-      case Pages.Kruskals:
-        selectedDescriptor = descriptors['kruskals'];
-        algorithmComponent = <Kruskals adjacencyList={adjacencyList} edgeWeightsList={edgeWeightsList} />;
-        break;
-      case Pages.IntervalScheduling:
-        selectedDescriptor = descriptors['interval scheduling'];
-        algorithmComponent = <IntervalScheduling />;
-        break;
-      case Pages.WeightedIntervalScheduling:
-        selectedDescriptor = descriptors['weighted interval scheduling'];
-        algorithmComponent = <WeightedIntervalScheduling jobs={weightedJobsList} width={30} isBasic={true} />;
-        break;
-      default:
-        return;
-    }
+    let selectedDescriptor: AlgorithmDescriptor = descriptors[this.props.selectedAlgorithm];
+  
     return (
       <div>
         <h1 style={{ 'marginTop': '50px' }}>{ selectedDescriptor.name }</h1>
@@ -107,12 +112,16 @@ class Algorithm extends React.Component<Props> {
         { selectedDescriptor.explanation }
         <h3>Algorithm</h3>
         { selectedDescriptor.pseudocode }
-        <h3>Complexity: <$>{ selectedDescriptor.complexity }</$> </h3>
-        { selectedDescriptor.complexityProof }
+        { selectedDescriptor.complexityProof &&
+        <>
+          <h3>Complexity: <$>{ selectedDescriptor.complexity }</$> </h3>
+          { selectedDescriptor.complexityProof }
+        </>
+        }
         <h3>Proof of correctness</h3>
         { selectedDescriptor.correctnessProof }
         <h3>Demo</h3>
-        { algorithmComponent }
+        { selectedDescriptor.algorithm }
       </div>
     );
   }

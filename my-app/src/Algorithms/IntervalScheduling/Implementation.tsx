@@ -7,38 +7,14 @@ class IntervalScheduling extends React.Component {
 
     const code = `
 const jobs = [
-  {
-    start: 7,
-    finish: 9
-  },
-  {
-    start: 0,
-    finish: 3
-  },
-  {
-    start: 5,
-    finish: 8
-  },
-  {
-    start: 0,
-    finish: 4
-  },
-  {
-    start: 9,
-    finish: 10
-  },
-  {
-    start: 1,
-    finish: 4
-  },
-  {
-    start: 4,
-    finish: 6
-  },
-  {
-    start: 5,
-    finish: 9
-  }
+  { start: 7, finish: 9 },
+  { start: 0, finish: 3 },
+  { start: 5, finish: 8 },
+  { start: 0, finish: 4 },
+  { start: 9, finish: 10 },
+  { start: 1, finish: 4 },
+  { start: 4, finish: 6 },
+  { start: 5, finish: 9 }
 ];
 
 function intervalScheduling(input) {
