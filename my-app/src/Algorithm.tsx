@@ -24,6 +24,15 @@ import DijkstrasProof from './Algorithms/Dijkstras/Proof';
 import Dijkstras from './Algorithms/Dijkstras/Implementation';
 import GeneralMSTExplanation from './Algorithms/GeneralMST/Explanation';
 import GeneralMSTProof from './Algorithms/GeneralMST/Proof';
+import PrimsExplanation from './Algorithms/Prims/Explanation';
+import PrimsPseudocode from './Algorithms/Prims/Pseudocode';
+import KruskalsExplanation from './Algorithms/Kruskals/Explanation';
+import KruskalsComplexity from './Algorithms/Kruskals/Complexity';
+import KruskalsPseudocode from './Algorithms/Kruskals/Pseudocode';
+import PrimsAlgorithm from './Algorithms/Prims/Implementation';
+import PrimsProof from './Algorithms/Prims/Proof';
+import KruskalsAlgorithm from './Algorithms/Kruskals/Implementation';
+import KruskalsProof from './Algorithms/Kruskals/Proof';
 
 interface Props {
   selectedAlgorithm: Pages;
@@ -79,7 +88,7 @@ const descriptors: AlgorithmDescriptorSet = {
     name: "Dijkstra's algorithm for shortest paths",
     description: "Given a directed graph with no negative edges, find the shortest path between some source node and all other nodes in the graph.",
     explanation: <DijkstrasExplanation />,
-    complexity: String.raw`O((e + v) \log v)`,
+    complexity: String.raw`O(e \log v)`,
     complexityProof: <DijkstrasComplexity />,
     correctnessProof: <DijkstrasProof />,
     pseudocode: <DijkstrasPseudocode />,
@@ -95,6 +104,26 @@ const descriptors: AlgorithmDescriptorSet = {
     pseudocode: String.raw`Greedy algorithm: Apply the red and blue rules (in an arbitrary, nondeterministic order) until all edges are coloured. The blue edges form an MST. We can stop once $\mid V \mid-1$ edges are coloured blue, since any MST has $\mid V \mid-1$ edges.`,
     algorithm: undefined
   },
+  'prims': {
+    name: "Prim's Algorithm",
+    description: "Find the minimum spanning tree for some weighted, undirected graph, by applying the Blue Rule (fundamental cutset)",
+    explanation: <PrimsExplanation />,
+    complexity: String.raw`O(e \log v)`,
+    complexityProof: "By the same priority queue method as Dijkstra's algorithm.",
+    correctnessProof: <PrimsProof />,
+    pseudocode: <PrimsPseudocode />,
+    algorithm: <PrimsAlgorithm />
+  },
+  'kruskals': {
+    name: "Kruskal's Algorithm",
+    description: "Find the minimum spanning tree for some weighted, undirected graph, by applying the Red Rule (fundamental cycle)",
+    explanation: <KruskalsExplanation />,
+    complexity: String.raw`O(e \log e)`,
+    complexityProof: <KruskalsComplexity />,
+    correctnessProof: <KruskalsProof />,
+    pseudocode: <KruskalsPseudocode />,
+    algorithm: <KruskalsAlgorithm />
+  }
 };
 
 class Algorithm extends React.Component<Props> {

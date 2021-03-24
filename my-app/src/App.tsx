@@ -16,7 +16,9 @@ export type Pages = 'index' |
   'interval-partitioning' |
   'minimising-lateness' |
   'dijkstras' |
-  'general-mst';
+  'general-mst' |
+  'prims' |
+  'kruskals';
 
 export enum Category {
   None,
@@ -87,7 +89,7 @@ class App extends React.Component<{}, { screen: Pages,  category: Category }> {
               <th scope="row">Earliest-deadline-first for minimising lateness</th>
               <td>We have a single resource that can complete jobs. We need to schedule jobs for this resource to minimise the maximum lateness across the jobs.</td>
               <td>\(O(n \log n)\)</td>
-              <td>Swap argument</td>
+              <td>Exchange argument</td>
               <td><button type="button" className="btn btn-primary" onClick={() => this.navigate('minimising-lateness', Category.Scheduling)}>View</button></td>
             </tr>
           </tbody>
@@ -108,7 +110,7 @@ class App extends React.Component<{}, { screen: Pages,  category: Category }> {
             <tr>
               <th scope="row">Dijkstra's algorithm for shortest paths</th>
               <td>Find the shortest path (in a directed graph without negative edges) between a source node and all other nodes in the graph</td>
-              <td>\(O((e +  v)\log v)\)</td>
+              <td>\(O(e\log v)\)</td>
               <td>Loop invariant</td>
               <td><button type="button" className="btn btn-primary" onClick={() => this.navigate('dijkstras', Category.Graphs)}>View</button></td>
             </tr>
@@ -118,6 +120,20 @@ class App extends React.Component<{}, { screen: Pages,  category: Category }> {
               <td>N/A</td>
               <td>Loop invariant</td>
               <td><button type="button" className="btn btn-primary" onClick={() => this.navigate('general-mst', Category.Graphs)}>View</button></td>
+            </tr>
+            <tr>
+              <th scope="row">Prim's MST Algorithm</th>
+              <td>An algorithm for finding the Minimum Spanning Tree of a graph.</td>
+              <td>$O(e \log v)$</td>
+              <td>Greedy stays ahead</td>
+              <td><button type="button" className="btn btn-primary" onClick={() => this.navigate('prims', Category.Graphs)}>View</button></td>
+            </tr>
+            <tr>
+              <th scope="row">Kruskal's MST Algorithm</th>
+              <td>An algorithm for finding the Minimum Spanning Tree of a graph. Also includes notes on the reverse-delete algorithm.</td>
+              <td>$O(e \log e)$</td>
+              <td>Exchange argument</td>
+              <td><button type="button" className="btn btn-primary" onClick={() => this.navigate('kruskals', Category.Graphs)}>View</button></td>
             </tr>
           </tbody>
         </table>
