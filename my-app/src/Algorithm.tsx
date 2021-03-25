@@ -37,6 +37,14 @@ import BinarySearchPseudocode from './Algorithms/BinarySearch/Pseudocode';
 import BinarySearchComplexity from './Algorithms/BinarySearch/Complexity';
 import BinarySearchProof from './Algorithms/BinarySearch/Proof';
 import BinarySearch from './Algorithms/BinarySearch/Implementation';
+import MergesortPseudocode from './Algorithms/Mergesort/Pseudocode';
+import MergesortComplexity from './Algorithms/Mergesort/Complexity';
+import MergesortProof from './Algorithms/Mergesort/Proof';
+import Mergesort from './Algorithms/Mergesort/Implementation';
+import ClosestPointsExplanation from './Algorithms/ClosestPoints/Explanation';
+import ClosestPointsComplexity from './Algorithms/ClosestPoints/Complexity';
+import ClosestPointsProof from './Algorithms/ClosestPoints/Proof';
+import ClosestPointsPseudocode from './Algorithms/ClosestPoints/Pseudocode';
 
 interface Props {
   selectedAlgorithm: Pages;
@@ -137,6 +145,26 @@ const descriptors: AlgorithmDescriptorSet = {
     correctnessProof: <BinarySearchProof />,
     pseudocode: <BinarySearchPseudocode />,
     algorithm: <BinarySearch />
+  },
+  'mergesort': {
+    name: "Mergesort",
+    description: "Given a list $L$ of $n$ elements, rearrange them in ascending order.",
+    explanation: "This algorithm works by splitting the input list in two, recursively sorting both halves, then merging the two halves to make a sorted whole.",
+    complexity: String.raw`O(n \log n)`,
+    complexityProof: <MergesortComplexity />,
+    correctnessProof: <MergesortProof />,
+    pseudocode: <MergesortPseudocode />,
+    algorithm: <Mergesort />
+  },
+  'closest-points': {
+    name: "Closest pair of points",
+    description: "Given $n$ points in the plane, find a pair of points with the smallest Euclidean distance between them.",
+    explanation: <ClosestPointsExplanation />,
+    complexity: String.raw`O(n \log n)`,
+    complexityProof: <ClosestPointsComplexity />,
+    correctnessProof: <ClosestPointsProof />,
+    pseudocode: <ClosestPointsPseudocode />,
+    algorithm: undefined
   }
 };
 

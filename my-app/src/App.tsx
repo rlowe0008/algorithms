@@ -19,7 +19,9 @@ export type Pages = 'index' |
   'general-mst' |
   'prims' |
   'kruskals' |
-  'binary-search';
+  'binary-search' |
+  'mergesort' |
+  'closest-points';
 
 export enum Category {
   None,
@@ -164,15 +166,15 @@ class App extends React.Component<{}, { screen: Pages,  category: Category }> {
               <th scope="row">Mergesort</th>
               <td>Given a list $L$ of $n$ elements, rearrange them in ascending order.</td>
               <td>\(O(n\log n)\)</td>
-              <td>TODO</td>
-              <td><button type="button" className="btn btn-primary">View</button></td>
+              <td>Loop invariant</td>
+              <td><button type="button" className="btn btn-primary" onClick={() => this.navigate('mergesort', Category.DivideConquer)}>View</button></td>
             </tr>
             <tr>
               <th scope="row">Closest pair of points</th>
               <td>Given $n$ points in the plane, find a pair of points with the smallest Euclidean distance between them.</td>
-              <td>TODO</td>
-              <td>TODO</td>
-              <td><button type="button" className="btn btn-primary">View</button></td>
+              <td>$O(n \log n)$</td>
+              <td>Recursive invariant</td>
+              <td><button type="button" className="btn btn-primary" onClick={() => this.navigate('closest-points', Category.DivideConquer)}>View</button></td>
             </tr>
             <tr>
               <th scope="row">Karatsuba's integer multiplication algorithm</th>
