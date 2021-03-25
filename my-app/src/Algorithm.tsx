@@ -33,6 +33,10 @@ import PrimsAlgorithm from './Algorithms/Prims/Implementation';
 import PrimsProof from './Algorithms/Prims/Proof';
 import KruskalsAlgorithm from './Algorithms/Kruskals/Implementation';
 import KruskalsProof from './Algorithms/Kruskals/Proof';
+import BinarySearchPseudocode from './Algorithms/BinarySearch/Pseudocode';
+import BinarySearchComplexity from './Algorithms/BinarySearch/Complexity';
+import BinarySearchProof from './Algorithms/BinarySearch/Proof';
+import BinarySearch from './Algorithms/BinarySearch/Implementation';
 
 interface Props {
   selectedAlgorithm: Pages;
@@ -123,6 +127,16 @@ const descriptors: AlgorithmDescriptorSet = {
     correctnessProof: <KruskalsProof />,
     pseudocode: <KruskalsPseudocode />,
     algorithm: <KruskalsAlgorithm />
+  },
+  'binary-search': {
+    name: "Binary search",
+    description: "Given a sorted array $A$ of $n$ elements, find the position of a target element $T$.",
+    explanation: "Find the index of some target element in a sorted list. Usage: Finding values in a list, seeing if values exist in a list, set operations.",
+    complexity: String.raw`O(\log n)`,
+    complexityProof: <BinarySearchComplexity />,
+    correctnessProof: <BinarySearchProof />,
+    pseudocode: <BinarySearchPseudocode />,
+    algorithm: <BinarySearch />
   }
 };
 

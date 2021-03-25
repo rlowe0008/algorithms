@@ -18,13 +18,14 @@ export type Pages = 'index' |
   'dijkstras' |
   'general-mst' |
   'prims' |
-  'kruskals';
+  'kruskals' |
+  'binary-search';
 
 export enum Category {
   None,
   Graphs,
-  AI,
-  Scheduling
+  Scheduling,
+  DivideConquer
 }
 
 declare global {
@@ -58,7 +59,7 @@ class App extends React.Component<{}, { screen: Pages,  category: Category }> {
       <>
         <h1>Algorithms</h1>
         <h2>Greedy algorithms</h2>
-        <p></p>
+        <p>Greedy algorithms make the locally-optimal choice at each stage.</p>
         <h3>Scheduling algorithms</h3>
         <table className="table">
           <thead>
@@ -137,6 +138,119 @@ class App extends React.Component<{}, { screen: Pages,  category: Category }> {
             </tr>
           </tbody>
         </table>
+
+        <h3>Divide-and-conquer</h3>
+        <p>Divide and conquer involves dividing a problem into several sub-problems of the same kind, solving each sub-problem recursively, then combining solutions to sub-problems into an overall solution.</p>
+
+        <table className="table">
+          <thead>
+            <tr>
+              <th scope="col">Algorithm</th>
+              <th scope="col">Description</th>
+              <th scope="col">Complexity</th>
+              <th scope="col">Proof by</th>
+              <th scope="col">Link</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Binary search</th>
+              <td>Given a sorted array $A$ of $n$ elements, find the position of a target element $T$.</td>
+              <td>$O(\log n)$</td>
+              <td>Recursive invariant</td>
+              <td><button type="button" className="btn btn-primary" onClick={() => this.navigate('binary-search', Category.DivideConquer)}>View</button></td>
+            </tr>
+            <tr>
+              <th scope="row">Mergesort</th>
+              <td>Given a list $L$ of $n$ elements, rearrange them in ascending order.</td>
+              <td>\(O(n\log n)\)</td>
+              <td>TODO</td>
+              <td><button type="button" className="btn btn-primary">View</button></td>
+            </tr>
+            <tr>
+              <th scope="row">Closest pair of points</th>
+              <td>Given $n$ points in the plane, find a pair of points with the smallest Euclidean distance between them.</td>
+              <td>TODO</td>
+              <td>TODO</td>
+              <td><button type="button" className="btn btn-primary">View</button></td>
+            </tr>
+            <tr>
+              <th scope="row">Karatsuba's integer multiplication algorithm</th>
+              <td>Given two $n$-bit integer $x,y$, multiply them together.</td>
+              <td>TODO</td>
+              <td>TODO</td>
+              <td><button type="button" className="btn btn-primary">View</button></td>
+            </tr>
+            <tr>
+              <th scope="row">Strassen's matrix multiplication algorithm</th>
+              <td>Given two $n \times n$ matrix $A, B$, calculate $AB$.</td>
+              <td>TODO</td>
+              <td>TODO</td>
+              <td><button type="button" className="btn btn-primary">View</button></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Dynamic programming</h3>
+        <p>Where a problem has <i>overlapping</i> sub-problems, solve each sub-problem and use these solutions to solve other sub-problems and the overall problem.</p>
+
+        <table className="table">
+          <thead>
+            <tr>
+              <th scope="col">Algorithm</th>
+              <th scope="col">Description</th>
+              <th scope="col">Complexity</th>
+              <th scope="col">Proof by</th>
+              <th scope="col">Link</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Weighted interval scheduling</th>
+              <td>For a set of jobs with weights, find the maximum-weight subset of mutually-compatible jobs.</td>
+              <td>TODO</td>
+              <td>TODO</td>
+              <td><button type="button" className="btn btn-primary">View</button></td>
+            </tr>
+            <tr>
+              <th scope="row">Knapsack algorithm</th>
+              <td>For a set of items, each with a value and weight, find the maximum total value of items that can be stored without exceeding some total weight.</td>
+              <td>TODO</td>
+              <td>TODO</td>
+              <td><button type="button" className="btn btn-primary">View</button></td>
+            </tr>
+            <tr>
+              <th scope="row">Sequence alignment</th>
+              <td>Find an alignment between two strings that minimises the edit distance.</td>
+              <td>TODO</td>
+              <td>TODO</td>
+              <td><button type="button" className="btn btn-primary">View</button></td>
+            </tr>
+            <tr>
+              <th scope="row">Hirschberg's algorithm</th>
+              <td>Sequence alignment in linear time.</td>
+              <td>TODO</td>
+              <td>TODO</td>
+              <td><button type="button" className="btn btn-primary">View</button></td>
+            </tr>
+            <tr>
+              <th scope="row">Bellman-Ford-Moore (shortest paths)</th>
+              <td>Find the shortest path between nodes when the graph contains negative edge weights.</td>
+              <td>TODO</td>
+              <td>TODO</td>
+              <td><button type="button" className="btn btn-primary">View</button></td>
+            </tr>
+            <tr>
+              <th scope="row">Bellman-Ford-Moore (negative cycles)</th>
+              <td>Detect negative cycles in a graph.</td>
+              <td>TODO</td>
+              <td>TODO</td>
+              <td><button type="button" className="btn btn-primary">View</button></td>
+            </tr>
+          </tbody>
+        </table>
+
+
 
         <h1>Theory</h1>
         <p>TODO: Master Theorem, Big-O, P and NP...</p>
