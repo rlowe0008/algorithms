@@ -45,6 +45,7 @@ import ClosestPointsExplanation from './Algorithms/ClosestPoints/Explanation';
 import ClosestPointsComplexity from './Algorithms/ClosestPoints/Complexity';
 import ClosestPointsProof from './Algorithms/ClosestPoints/Proof';
 import ClosestPointsPseudocode from './Algorithms/ClosestPoints/Pseudocode';
+import ClosestPoints from './Algorithms/ClosestPoints/Implementation';
 
 interface Props {
   selectedAlgorithm: Pages;
@@ -164,7 +165,7 @@ const descriptors: AlgorithmDescriptorSet = {
     complexityProof: <ClosestPointsComplexity />,
     correctnessProof: <ClosestPointsProof />,
     pseudocode: <ClosestPointsPseudocode />,
-    algorithm: undefined
+    algorithm: <ClosestPoints />
   }
 };
 
