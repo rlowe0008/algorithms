@@ -46,6 +46,10 @@ import ClosestPointsComplexity from './Algorithms/ClosestPoints/Complexity';
 import ClosestPointsProof from './Algorithms/ClosestPoints/Proof';
 import ClosestPointsPseudocode from './Algorithms/ClosestPoints/Pseudocode';
 import ClosestPoints from './Algorithms/ClosestPoints/Implementation';
+import KaratsubaExplanation from './Algorithms/Karatsuba/Explanation';
+import KaratsubaComplexity from './Algorithms/Karatsuba/Complexity';
+import KaratsubaProof from './Algorithms/Karatsuba/Proof';
+import KaratsubaPseudocode from './Algorithms/Karatsuba/Pseudocode';
 
 interface Props {
   selectedAlgorithm: Pages;
@@ -166,6 +170,16 @@ const descriptors: AlgorithmDescriptorSet = {
     correctnessProof: <ClosestPointsProof />,
     pseudocode: <ClosestPointsPseudocode />,
     algorithm: <ClosestPoints />
+  },
+  'karatsuba': {
+    name: "Karatsuba's integer multiplication algorithm",
+    description: "Given two $n$-bit integers $x,y$, multiply them together (at a binary level).",
+    explanation: <KaratsubaExplanation />,
+    complexity: String.raw`O(n^{1.585})`,
+    complexityProof: <KaratsubaComplexity />,
+    correctnessProof: <KaratsubaProof />,
+    pseudocode: <KaratsubaPseudocode />,
+    algorithm: undefined
   }
 };
 

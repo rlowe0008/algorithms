@@ -6,6 +6,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container } from 'react-bootstrap';
+import $ from './Math';
 
 interface Props {
   
@@ -21,7 +22,8 @@ export type Pages = 'index' |
   'kruskals' |
   'binary-search' |
   'mergesort' |
-  'closest-points';
+  'closest-points' |
+  'karatsuba';
 
 export enum Category {
   None,
@@ -178,10 +180,10 @@ class App extends React.Component<{}, { screen: Pages,  category: Category }> {
             </tr>
             <tr>
               <th scope="row">Karatsuba's integer multiplication algorithm</th>
-              <td>Given two $n$-bit integer $x,y$, multiply them together.</td>
-              <td>TODO</td>
-              <td>TODO</td>
-              <td><button type="button" className="btn btn-primary">View</button></td>
+              <td>Given two $n$-bit integers $x,y$, multiply them together.</td>
+              <td><$ math="O(n^{1.585})" /></td>
+              <td>Recursive invariant</td>
+              <td><button type="button" className="btn btn-primary" onClick={() => this.navigate('karatsuba', Category.DivideConquer)}>View</button></td>
             </tr>
             <tr>
               <th scope="row">Strassen's matrix multiplication algorithm</th>
