@@ -7,6 +7,8 @@ import Breadcrumb from 'react-bootstrap/Breadcrumb';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container } from 'react-bootstrap';
 import $ from './Math';
+import BigO from './Pages/BigO';
+import Intractability from './Pages/Intractability';
 
 interface Props {
   
@@ -23,13 +25,16 @@ export type Pages = 'index' |
   'binary-search' |
   'mergesort' |
   'closest-points' |
-  'karatsuba';
+  'karatsuba' |
+  'big-o' |
+  'intractability';
 
 export enum Category {
   None,
   Graphs,
   Scheduling,
-  DivideConquer
+  DivideConquer,
+  Theory
 }
 
 declare global {
@@ -54,7 +59,13 @@ class App extends React.Component<{}, { screen: Pages,  category: Category }> {
     this.setState({ screen, category });
     setTimeout(() => {
       window.MathJax?.typeset();
-    }, 50);
+      setTimeout(() => {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth"
+        });
+      }, 5);
+    }, 5);
   }
 
   render() {
@@ -62,6 +73,7 @@ class App extends React.Component<{}, { screen: Pages,  category: Category }> {
     const pageContent = this.state.screen === 'index' ? 
       <>
         <h1>Algorithms</h1>
+        <p>TODO: Space complexity, common usage for ALL.</p>
         <h2>Greedy algorithms</h2>
         <p>Greedy algorithms make the locally-optimal choice at each stage.</p>
         <h3>Scheduling algorithms</h3>
@@ -254,14 +266,35 @@ class App extends React.Component<{}, { screen: Pages,  category: Category }> {
           </tbody>
         </table>
 
-
-
         <h1>Theory</h1>
-        <p>TODO: Master Theorem, Big-O, P and NP...</p>
-      </> :
-      <>
-        <Algorithm selectedAlgorithm={this.state.screen} />
-      </>;
+
+        <table className="table">
+          <thead>
+            <tr>
+              <th scope="col">Title</th>
+              <th scope="col">Description</th>
+              <th scope="col">Link</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Big-O notation</th>
+              <td>Analysing the complexity of algorithms with Big-O notation.</td>
+              <td><button type="button" className="btn btn-primary" onClick={() => this.navigate('big-o', Category.Theory)}>View</button></td>
+            </tr>
+            <tr>
+              <th scope="row">Intractability</th>
+              <td>P and NP hardness and completeness.</td>
+              <td><button type="button" className="btn btn-primary" onClick={() => this.navigate('intractability', Category.Theory)}>View</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </> : this.state.screen === 'big-o' ?
+        <BigO />
+      : this.state.screen === 'intractability' ?
+        <Intractability />
+      :
+      <Algorithm selectedAlgorithm={this.state.screen} />;
 
     const breadcrumbs = this.state.screen !== 'index' ? 
       <>

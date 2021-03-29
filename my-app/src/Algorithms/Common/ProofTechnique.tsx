@@ -12,7 +12,7 @@ class ProofTechnique extends React.Component<{ name: string }, { expanded: boole
     this.setState({ expanded: !this.state.expanded });
     setTimeout(() => {
       window.MathJax?.typeset();
-    }, 50);
+    }, 5);
   }
 
   render() {

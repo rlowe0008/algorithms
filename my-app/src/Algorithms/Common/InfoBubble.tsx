@@ -12,7 +12,7 @@ class InfoBubble extends React.Component<{ title: string }, { expanded: boolean 
     this.setState({ expanded: !this.state.expanded });
     setTimeout(() => {
       window.MathJax?.typeset();
-    }, 50);
+    }, 5);
   }
 
   render() {
