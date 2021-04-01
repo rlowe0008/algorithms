@@ -27,14 +27,16 @@ export type Pages = 'index' |
   'closest-points' |
   'karatsuba' |
   'big-o' |
-  'intractability';
+  'intractability' |
+  'weighted-interval-scheduling';
 
 export enum Category {
   None,
   Graphs,
   Scheduling,
   DivideConquer,
-  Theory
+  Theory,
+  DynamicProgramming
 }
 
 declare global {
@@ -197,13 +199,6 @@ class App extends React.Component<{}, { screen: Pages,  category: Category }> {
               <td>Recursive invariant</td>
               <td><button type="button" className="btn btn-primary" onClick={() => this.navigate('karatsuba', Category.DivideConquer)}>View</button></td>
             </tr>
-            <tr>
-              <th scope="row">Strassen's matrix multiplication algorithm</th>
-              <td>Given two $n \times n$ matrix $A, B$, calculate $AB$.</td>
-              <td>TODO</td>
-              <td>TODO</td>
-              <td><button type="button" className="btn btn-primary">View</button></td>
-            </tr>
           </tbody>
         </table>
 
@@ -224,9 +219,9 @@ class App extends React.Component<{}, { screen: Pages,  category: Category }> {
             <tr>
               <th scope="row">Weighted interval scheduling</th>
               <td>For a set of jobs with weights, find the maximum-weight subset of mutually-compatible jobs.</td>
-              <td>TODO</td>
-              <td>TODO</td>
-              <td><button type="button" className="btn btn-primary">View</button></td>
+              <td>$O(n \log n)$</td>
+              <td>Optimal substructure</td>
+              <td><button type="button" className="btn btn-primary" onClick={() => this.navigate('weighted-interval-scheduling', Category.DynamicProgramming)}>View</button></td>
             </tr>
             <tr>
               <th scope="row">Knapsack algorithm</th>

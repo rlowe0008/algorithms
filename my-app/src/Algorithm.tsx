@@ -50,6 +50,10 @@ import KaratsubaExplanation from './Algorithms/Karatsuba/Explanation';
 import KaratsubaComplexity from './Algorithms/Karatsuba/Complexity';
 import KaratsubaProof from './Algorithms/Karatsuba/Proof';
 import KaratsubaPseudocode from './Algorithms/Karatsuba/Pseudocode';
+import WISComplexity from './Algorithms/WeightedIntervalScheduling/Complexity';
+import WISProof from './Algorithms/WeightedIntervalScheduling/Proof';
+import WISPseudocode from './Algorithms/WeightedIntervalScheduling/Pseudocode';
+import WISExplanation from './Algorithms/WeightedIntervalScheduling/Explanation';
 
 interface Props {
   selectedAlgorithm: Pages;
@@ -180,7 +184,17 @@ const descriptors: AlgorithmDescriptorSet = {
     correctnessProof: <KaratsubaProof />,
     pseudocode: <KaratsubaPseudocode />,
     algorithm: undefined
-  }
+  },
+  'weighted-interval-scheduling': {
+    name: "Weighted interval scheduling",
+    description: "For a set of jobs with weights, find the maximum-weight subset of mutually-compatible jobs.",
+    explanation: <WISExplanation />,
+    complexity: String.raw`O(n \log n)`,
+    complexityProof: <WISComplexity />,
+    correctnessProof: <WISProof />,
+    pseudocode: <WISPseudocode />,
+    algorithm: undefined
+  },
 };
 
 class Algorithm extends React.Component<Props> {
