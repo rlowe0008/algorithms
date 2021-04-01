@@ -8,6 +8,8 @@ import FindVertexCover from './find-vertex-cover.png';
 import FindVertexCover2 from './find-vertex-cover-2.png';
 import IS3Sat from './ind-set-3sat.png';
 import IS3Sat2 from './ind-set-3sat-2.png';
+import SSReduction from './subset-sum-reduction.png';
+import SS1 from './subset-sum-eg1.png';
 import $ from '../Math';
 import InfoBubble from '../Algorithms/Common/InfoBubble';
 
@@ -211,7 +213,41 @@ class Intractability extends React.Component {
 
         <p>Theorem: 3-SAT $\le_P$ subset sum.</p>
         <p>Proof: given an instance $\Phi$ of 3-SAT, we construct an instance of subset sum that has a solution iff $\Phi$ is satisfiable.</p>
-        <p>Construction: TODO...</p>
+        <p>Construction: $\Phi$ has $n$ variables and $k$ clauses. Construct a sequence of $2n+2k$ integers (2 numbers for every variable and every clause), where each integer has $n+k$ digits:</p>
+        <ul>
+          <li>Create a table of digits (columns) by integers (rows)</li>
+          <li>Include one digit (column) for each variable $x_i$ and one digit for each clause $C_i$</li>
+          <li>Include two numbers (rows) for each variable, and a further two numbers (rows) for each clause</li>
+          <li>In each clause column, put a 1 for an occurrence of each literal</li>
+          <li>In each literal column $x_i$, put a 1 for rows $x_i$ and <$ math="\overline{x_i}" /></li>
+          <li>In each clause row $C_i$, put a 1 in column $C_i$; for each clause row $C_i'$, put a 2 in column $C_i$</li>
+          <li>Complete the table: find $W$ by summing each column, and find $2n+2k numbers by reading across the row digits.</li>
+        </ul>
+
+        <InfoBubble title="3-SAT reduces to subset sum: construction">
+          <img src={SSReduction} className="img-fluid" alt="3-SAT reduces to subset sum" />
+        </InfoBubble>
+
+        <p>We now have an instance of subset sum, with $2n+2k$ decimal integers and a target of $W$. This instance of subset sum has a solution if and only if the original 3-SAT $\Phi$ is satisfiable.</p>
+
+        <InfoBubble title="Proof">
+          <p>$\Rightarrow$:</p>
+          <ul>
+            <li>Suppose some 3-SAT instance $\Phi$ has a satisfying assignment $X$</li>
+            <li>For each $x_i$ in $X$: if $x_i$ true then select the integer in row $x_i$; otherwise select the integer in row <$ math="\overline{x_i}" /></li>
+            <li>Then each digit $x_i$ sums to 1</li>
+            <li>Since $X$ satisfies $\Phi$, each digit $C_i$ sums to at least 1. Select a set of remaining digits such that each $C_i$ digit correctly sums to 4.</li>
+            <li>Hence this instance of subset sum has a solution.</li>
+            <img src={SS1} className="img-fluid" alt="Example" />
+          </ul>
+          <p>$\Leftarrow$:</p>
+          <ul>
+            <li>Suppose the instance of subset sum, constructed by the aforementioned construction from some 3-SAT problem $\Phi$, has a solution $S$ that sums to $W$</li>
+            <li>Digit $x_i = 1$ ensures that either row $x_i$ or <$ math="\overline{x_i}" /> is selected; if $x_i$ is selected then assign $x_i=T$, otherwise assign $x_i = F$</li>
+            <li>Digit $C_i$ ensures that at least one literal is selected in each clause (otherwise there would be no way for digit $C_i$ to sum to $4$)</li>
+            <li>Hence $\Phi$ is satisfied; at least one literal in each clause is true.</li>
+          </ul>
+        </InfoBubble>
 
         <h3>P and NP</h3>
         <p><b>P</b>: The set of problems such that an algorithm exists to solve the problem in polynomial time.</p>
