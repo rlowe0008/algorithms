@@ -10,7 +10,7 @@ const array = [1, 3, 6, 7, 9, 13, 17, 21, 24];
 
 function binarySearch(A, T) {
   let l = 0;
-  let r = array.length - 1;
+  let r = A.length - 1;
   let m = 0;
   while (true) {
     m = Math.floor((l + r) / 2);

@@ -54,6 +54,12 @@ import WISComplexity from './Algorithms/WeightedIntervalScheduling/Complexity';
 import WISProof from './Algorithms/WeightedIntervalScheduling/Proof';
 import WISPseudocode from './Algorithms/WeightedIntervalScheduling/Pseudocode';
 import WISExplanation from './Algorithms/WeightedIntervalScheduling/Explanation';
+import WeightedIntervalScheduling from './Algorithms/WeightedIntervalScheduling/Implementation';
+import KnapsackExplanation from './Algorithms/Knapsack/Explanation';
+import KnapsackComplexity from './Algorithms/Knapsack/Complexity';
+import KnapsackProof from './Algorithms/Knapsack/Proof';
+import KnapsackPseudocode from './Algorithms/Knapsack/Pseudocode';
+import Knapsack from './Algorithms/Knapsack/Implementation';
 
 interface Props {
   selectedAlgorithm: Pages;
@@ -193,8 +199,18 @@ const descriptors: AlgorithmDescriptorSet = {
     complexityProof: <WISComplexity />,
     correctnessProof: <WISProof />,
     pseudocode: <WISPseudocode />,
-    algorithm: undefined
+    algorithm: <WeightedIntervalScheduling />
   },
+  'knapsack': {
+    name: "Knapsack algorithm",
+    description: "For a set of items, each with a value and weight, find the maximum total value of items that can be stored without exceeding some total weight.",
+    explanation: <KnapsackExplanation />,
+    complexity: String.raw`\Theta(n W)`,
+    complexityProof: <KnapsackComplexity />,
+    correctnessProof: <KnapsackProof />,
+    pseudocode: <KnapsackPseudocode />,
+    algorithm: <Knapsack />
+  }
 };
 
 class Algorithm extends React.Component<Props> {

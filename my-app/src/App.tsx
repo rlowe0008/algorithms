@@ -28,7 +28,8 @@ export type Pages = 'index' |
   'karatsuba' |
   'big-o' |
   'intractability' |
-  'weighted-interval-scheduling';
+  'weighted-interval-scheduling' |
+  'knapsack';
 
 export enum Category {
   None,
@@ -226,9 +227,9 @@ class App extends React.Component<{}, { screen: Pages,  category: Category }> {
             <tr>
               <th scope="row">Knapsack algorithm</th>
               <td>For a set of items, each with a value and weight, find the maximum total value of items that can be stored without exceeding some total weight.</td>
-              <td>TODO</td>
-              <td>TODO</td>
-              <td><button type="button" className="btn btn-primary">View</button></td>
+              <td>$\Theta(nW)$</td>
+              <td>Optimal substructure</td>
+              <td><button type="button" className="btn btn-primary" onClick={() => this.navigate('knapsack', Category.DynamicProgramming)}>View</button></td>
             </tr>
             <tr>
               <th scope="row">Sequence alignment</th>
