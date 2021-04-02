@@ -164,7 +164,7 @@ const descriptors: AlgorithmDescriptorSet = {
   'mergesort': {
     name: "Mergesort",
     description: "Given a list $L$ of $n$ elements, rearrange them in ascending order.",
-    explanation: "This algorithm works by splitting the input list in two, recursively sorting both halves, then merging the two halves to make a sorted whole.",
+    explanation: "Input: a list of elements and some total order by which they can be arranged. Output: sorted list. This algorithm works by splitting the input list in two, recursively sorting both halves, then merging the two halves to make a sorted whole.",
     complexity: String.raw`O(n \log n)`,
     complexityProof: <MergesortComplexity />,
     correctnessProof: <MergesortProof />,
