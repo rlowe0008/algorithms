@@ -60,6 +60,10 @@ import KnapsackComplexity from './Algorithms/Knapsack/Complexity';
 import KnapsackProof from './Algorithms/Knapsack/Proof';
 import KnapsackPseudocode from './Algorithms/Knapsack/Pseudocode';
 import Knapsack from './Algorithms/Knapsack/Implementation';
+import SequenceAlignmentExplanation from './Algorithms/SequenceAlignment/Explanation';
+import SequenceAlignmentProof from './Algorithms/SequenceAlignment/Proof';
+import SequenceAlignmentPseudocode from './Algorithms/SequenceAlignment/Pseudocode';
+import SequenceAlignment from './Algorithms/SequenceAlignment/Implementation';
 
 interface Props {
   selectedAlgorithm: Pages;
@@ -210,6 +214,16 @@ const descriptors: AlgorithmDescriptorSet = {
     correctnessProof: <KnapsackProof />,
     pseudocode: <KnapsackPseudocode />,
     algorithm: <Knapsack />
+  },
+  'sequence-alignment': {
+    name: "Sequence alignment",
+    description: "Find an alignment between two strings that minimises the edit distance.",
+    explanation: <SequenceAlignmentExplanation />,
+    complexity: String.raw`\Theta(mn)`,
+    complexityProof: String.raw`For strings of length $m,n$: $\Theta(mn)$`,
+    correctnessProof: <SequenceAlignmentProof />,
+    pseudocode: <SequenceAlignmentPseudocode />,
+    algorithm: <SequenceAlignment />
   }
 };
 

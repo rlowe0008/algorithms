@@ -29,7 +29,8 @@ export type Pages = 'index' |
   'big-o' |
   'intractability' |
   'weighted-interval-scheduling' |
-  'knapsack';
+  'knapsack' |
+  'sequence-alignment';
 
 export enum Category {
   None,
@@ -234,9 +235,9 @@ class App extends React.Component<{}, { screen: Pages,  category: Category }> {
             <tr>
               <th scope="row">Sequence alignment</th>
               <td>Find an alignment between two strings that minimises the edit distance.</td>
-              <td>TODO</td>
-              <td>TODO</td>
-              <td><button type="button" className="btn btn-primary">View</button></td>
+              <td>$\Theta(mn)$</td>
+              <td>Optimal substructure</td>
+              <td><button type="button" className="btn btn-primary" onClick={() => this.navigate('sequence-alignment', Category.DynamicProgramming)}>View</button></td>
             </tr>
             <tr>
               <th scope="row">Hirschberg's algorithm</th>
