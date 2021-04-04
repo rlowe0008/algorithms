@@ -64,6 +64,11 @@ import SequenceAlignmentExplanation from './Algorithms/SequenceAlignment/Explana
 import SequenceAlignmentProof from './Algorithms/SequenceAlignment/Proof';
 import SequenceAlignmentPseudocode from './Algorithms/SequenceAlignment/Pseudocode';
 import SequenceAlignment from './Algorithms/SequenceAlignment/Implementation';
+import ShortestNegWeightsExplanation from './Algorithms/ShortestNegWeights/Explanation';
+import ShortestNegWeightsProof from './Algorithms/ShortestNegWeights/Proof';
+import ShortestNegWeightsPseudocode from './Algorithms/ShortestNegWeights/Pseudocode';
+import ShortestNegWeightsComplexity from './Algorithms/ShortestNegWeights/Complexity';
+import ShortestNegWeights from './Algorithms/ShortestNegWeights/Implementation';
 
 interface Props {
   selectedAlgorithm: Pages;
@@ -224,6 +229,16 @@ const descriptors: AlgorithmDescriptorSet = {
     correctnessProof: <SequenceAlignmentProof />,
     pseudocode: <SequenceAlignmentPseudocode />,
     algorithm: <SequenceAlignment />
+  },
+  'shortest-neg-weights': {
+    name: "Shortest path (graph with negative weights)",
+    description: "Find the shortest path between nodes when the graph contains negative edge weights.",
+    explanation: <ShortestNegWeightsExplanation />,
+    complexity: String.raw`\Theta(ev)`,
+    complexityProof: <ShortestNegWeightsComplexity />,
+    correctnessProof: <ShortestNegWeightsProof />,
+    pseudocode: <ShortestNegWeightsPseudocode />,
+    algorithm: <ShortestNegWeights />
   }
 };
 

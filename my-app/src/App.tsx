@@ -30,7 +30,8 @@ export type Pages = 'index' |
   'intractability' |
   'weighted-interval-scheduling' |
   'knapsack' |
-  'sequence-alignment';
+  'sequence-alignment' |
+  'shortest-neg-weights';
 
 export enum Category {
   None,
@@ -77,7 +78,7 @@ class App extends React.Component<{}, { screen: Pages,  category: Category }> {
     const pageContent = this.state.screen === 'index' ? 
       <>
         <h1>Algorithms</h1>
-        <p>TODO: Space complexity, common usage for ALL.</p>
+        <p>TODO: Space complexity, common usage, clear input/output for ALL. Use correct |E| etc notation for graphs</p>
         <h2>Greedy algorithms</h2>
         <p>Greedy algorithms make the locally-optimal choice at each stage.</p>
         <h3>Scheduling algorithms</h3>
@@ -240,17 +241,17 @@ class App extends React.Component<{}, { screen: Pages,  category: Category }> {
               <td><button type="button" className="btn btn-primary" onClick={() => this.navigate('sequence-alignment', Category.DynamicProgramming)}>View</button></td>
             </tr>
             <tr>
-              <th scope="row">Hirschberg's algorithm</th>
-              <td>Sequence alignment in linear time.</td>
-              <td>TODO</td>
-              <td>TODO</td>
-              <td><button type="button" className="btn btn-primary">View</button></td>
+              <th scope="row">Shortest path (graph with negative weights)</th>
+              <td>Find the shortest path between nodes when the graph contains negative edge weights.</td>
+              <td>$\Theta(ev)$</td>
+              <td>Optimal substructure</td>
+              <td><button type="button" className="btn btn-primary" onClick={() => this.navigate('shortest-neg-weights', Category.DynamicProgramming)}>View</button></td>
             </tr>
             <tr>
-              <th scope="row">Bellman-Ford-Moore (shortest paths)</th>
-              <td>Find the shortest path between nodes when the graph contains negative edge weights.</td>
-              <td>TODO</td>
-              <td>TODO</td>
+              <th scope="row">Bellman-Ford-Moore (shortest path)</th>
+              <td>Find the shortest path between nodes when the graph contains negative edge weights, in linear space.</td>
+              <td>$\Theta(ev)$</td>
+              <td>Optimal substructure</td>
               <td><button type="button" className="btn btn-primary">View</button></td>
             </tr>
             <tr>
