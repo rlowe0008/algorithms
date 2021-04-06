@@ -69,6 +69,11 @@ import ShortestNegWeightsProof from './Algorithms/ShortestNegWeights/Proof';
 import ShortestNegWeightsPseudocode from './Algorithms/ShortestNegWeights/Pseudocode';
 import ShortestNegWeightsComplexity from './Algorithms/ShortestNegWeights/Complexity';
 import ShortestNegWeights from './Algorithms/ShortestNegWeights/Implementation';
+import BFMExplanation from './Algorithms/BFM/Explanation';
+import BFMPseudocode from './Algorithms/BFM/Pseudocode';
+import BFMComplexity from './Algorithms/BFM/Complexity';
+import BFMCorrectness from './Algorithms/BFM/Correctness';
+import BFM from './Algorithms/BFM/Implementation';
 
 interface Props {
   selectedAlgorithm: Pages;
@@ -92,7 +97,7 @@ interface AlgorithmDescriptorSet {
 const descriptors: AlgorithmDescriptorSet = {
   'interval-scheduling': {
     name: "Earliest-finish-time-first for interval scheduling",
-    description: "There is a set of items where each one occupies some interval, each with a start time and finish time. Items are compatible if they do not overlap. Find the maximum subset of mutually-compatible items.",
+    description: "There is a set of $n$ items where each one occupies some interval, each with a start time and finish time. Items are compatible if they do not overlap. Find the maximum subset of mutually-compatible items.",
     explanation: <IntervalSchedulingExplanation />,
     complexity: String.raw`O(n \log n)`,
     complexityProof: <IntervalSchedulingComplexity />,
@@ -102,7 +107,7 @@ const descriptors: AlgorithmDescriptorSet = {
   },
   'interval-partitioning': {
     name: "Earliest-start-time-first for interval partitioning",
-    description: "There is a set of items where each one occupies some interval, each with a start time and finish time. Partition the set of items such that no two items overlap using the minimum number of rows.",
+    description: "There is a set of $n$ items where each one occupies some interval, each with a start time and finish time. Partition the set of items such that no two items overlap using the minimum number of rows.",
     explanation: <IntervalPartitioningExplanation />,
     complexity: String.raw`O(n \log n)`,
     complexityProof: <IntervalPartitioningComplexity />,
@@ -112,7 +117,7 @@ const descriptors: AlgorithmDescriptorSet = {
   },
   'minimising-lateness': {
     name: "Earliest-deadline-first for minimising lateness",
-    description: "We have a single resource that can complete jobs. We need to schedule jobs for this resource to minimise the maximum lateness across the jobs.",
+    description: "We have a single resource that can complete jobs. We need to schedule $n$ jobs for this resource to minimise the maximum lateness across the jobs.",
     explanation: <MinimisingLatenessExplanation />,
     complexity: String.raw`O(n \log n)`,
     complexityProof: "This algorithm runs entirely on the basis of scheduling jobs that need to finished sooner. The initial sort is the most complex part.",
@@ -124,7 +129,7 @@ const descriptors: AlgorithmDescriptorSet = {
     name: "Dijkstra's algorithm for shortest paths",
     description: "Given a directed graph with no negative edges, find the shortest path between some source node and all other nodes in the graph.",
     explanation: <DijkstrasExplanation />,
-    complexity: String.raw`O(e \log v)`,
+    complexity: String.raw`O(\mid E \mid \log \mid V \mid)`,
     complexityProof: <DijkstrasComplexity />,
     correctnessProof: <DijkstrasProof />,
     pseudocode: <DijkstrasPseudocode />,
@@ -144,7 +149,7 @@ const descriptors: AlgorithmDescriptorSet = {
     name: "Prim's Algorithm",
     description: "Find the minimum spanning tree for some weighted, undirected graph, by applying the Blue Rule (fundamental cutset)",
     explanation: <PrimsExplanation />,
-    complexity: String.raw`O(e \log v)`,
+    complexity: String.raw`O(\mid E \mid \log \mid V \mid)`,
     complexityProof: "By the same priority queue method as Dijkstra's algorithm.",
     correctnessProof: <PrimsProof />,
     pseudocode: <PrimsPseudocode />,
@@ -154,7 +159,7 @@ const descriptors: AlgorithmDescriptorSet = {
     name: "Kruskal's Algorithm",
     description: "Find the minimum spanning tree for some weighted, undirected graph, by applying the Red Rule (fundamental cycle)",
     explanation: <KruskalsExplanation />,
-    complexity: String.raw`O(e \log e)`,
+    complexity: String.raw`O(\mid E \mid \log \mid E \mid)`,
     complexityProof: <KruskalsComplexity />,
     correctnessProof: <KruskalsProof />,
     pseudocode: <KruskalsPseudocode />,
@@ -202,7 +207,7 @@ const descriptors: AlgorithmDescriptorSet = {
   },
   'weighted-interval-scheduling': {
     name: "Weighted interval scheduling",
-    description: "For a set of jobs with weights, find the maximum-weight subset of mutually-compatible jobs.",
+    description: "For a set of $n$ jobs with weights, find the maximum-weight subset of mutually-compatible jobs.",
     explanation: <WISExplanation />,
     complexity: String.raw`O(n \log n)`,
     complexityProof: <WISComplexity />,
@@ -212,7 +217,7 @@ const descriptors: AlgorithmDescriptorSet = {
   },
   'knapsack': {
     name: "Knapsack algorithm",
-    description: "For a set of items, each with a value and weight, find the maximum total value of items that can be stored without exceeding some total weight.",
+    description: "For a set of $n$ items, each with a value and weight, find the maximum total value of items that can be stored without exceeding some total weight $W$.",
     explanation: <KnapsackExplanation />,
     complexity: String.raw`\Theta(n W)`,
     complexityProof: <KnapsackComplexity />,
@@ -222,7 +227,7 @@ const descriptors: AlgorithmDescriptorSet = {
   },
   'sequence-alignment': {
     name: "Sequence alignment",
-    description: "Find an alignment between two strings that minimises the edit distance.",
+    description: "Find an alignment between two strings (of lengths $m, n$) that minimises the edit distance between them.",
     explanation: <SequenceAlignmentExplanation />,
     complexity: String.raw`\Theta(mn)`,
     complexityProof: String.raw`For strings of length $m,n$: $\Theta(mn)$`,
@@ -234,11 +239,21 @@ const descriptors: AlgorithmDescriptorSet = {
     name: "Shortest path (graph with negative weights)",
     description: "Find the shortest path between nodes when the graph contains negative edge weights.",
     explanation: <ShortestNegWeightsExplanation />,
-    complexity: String.raw`\Theta(ev)`,
+    complexity: String.raw`\Theta(\mid E \mid \mid V \mid)`,
     complexityProof: <ShortestNegWeightsComplexity />,
     correctnessProof: <ShortestNegWeightsProof />,
     pseudocode: <ShortestNegWeightsPseudocode />,
     algorithm: <ShortestNegWeights />
+  },
+  'bfm': {
+    name: "Bellman-Ford-Moore algorithm",
+    description: "Find the shortest path between nodes when the graph contains negative edge weights (in linear space).",
+    explanation: <BFMExplanation />,
+    complexity: String.raw`\Theta(\mid E \mid \mid V \mid)`,
+    complexityProof: <BFMComplexity />,
+    correctnessProof: <BFMCorrectness />,
+    pseudocode: <BFMPseudocode />,
+    algorithm: <BFM />
   }
 };
 

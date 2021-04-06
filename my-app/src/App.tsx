@@ -31,7 +31,8 @@ export type Pages = 'index' |
   'weighted-interval-scheduling' |
   'knapsack' |
   'sequence-alignment' |
-  'shortest-neg-weights';
+  'shortest-neg-weights' |
+  'bfm';
 
 export enum Category {
   None,
@@ -78,7 +79,7 @@ class App extends React.Component<{}, { screen: Pages,  category: Category }> {
     const pageContent = this.state.screen === 'index' ? 
       <>
         <h1>Algorithms</h1>
-        <p>TODO: Space complexity, common usage, clear input/output for ALL. Use correct |E| etc notation for graphs</p>
+        <p>TODO: Space complexity, common usage, clear input/output for ALL (update the type for description field)</p>
         <h2>Greedy algorithms</h2>
         <p>Greedy algorithms make the locally-optimal choice at each stage.</p>
         <h3>Scheduling algorithms</h3>
@@ -95,21 +96,21 @@ class App extends React.Component<{}, { screen: Pages,  category: Category }> {
           <tbody>
             <tr>
               <th scope="row">Earliest-finish-time-first for interval scheduling</th>
-              <td>A set of items occupy an interval, where items are compatible if they do not overlap. Find the maximum subset of mutually-compatible items.</td>
+              <td>A set of $n$ items occupy an interval, where items are compatible if they do not overlap. Find the maximum subset of mutually-compatible items.</td>
               <td>\(O(n \log n)\)</td>
               <td>Greedy stays ahead</td>
               <td><button type="button" className="btn btn-primary" onClick={() => this.navigate('interval-scheduling', Category.Scheduling)}>View</button></td>
             </tr>
             <tr>
               <th scope="row">Earliest-start-time-first for interval partitioning</th>
-              <td>A set of items occupy an interval, partition these items into the smallest number of rows such that no items overlap.</td>
+              <td>A set of $n$ items occupy an interval, partition these items into the smallest number of rows such that no items overlap.</td>
               <td>\(O(n \log n)\)</td>
               <td>Structural bound</td>
               <td><button type="button" className="btn btn-primary" onClick={() => this.navigate('interval-partitioning', Category.Scheduling)}>View</button></td>
             </tr>
             <tr>
               <th scope="row">Earliest-deadline-first for minimising lateness</th>
-              <td>We have a single resource that can complete jobs. We need to schedule jobs for this resource to minimise the maximum lateness across the jobs.</td>
+              <td>We have a single resource that can complete jobs. We need to schedule $n$ jobs for this resource to minimise the maximum lateness across the jobs.</td>
               <td>\(O(n \log n)\)</td>
               <td>Exchange argument</td>
               <td><button type="button" className="btn btn-primary" onClick={() => this.navigate('minimising-lateness', Category.Scheduling)}>View</button></td>
@@ -132,7 +133,7 @@ class App extends React.Component<{}, { screen: Pages,  category: Category }> {
             <tr>
               <th scope="row">Dijkstra's algorithm for shortest paths</th>
               <td>Find the shortest path (in a directed graph without negative edges) between a source node and all other nodes in the graph</td>
-              <td>\(O(e\log v)\)</td>
+              <td>$O(\mid E \mid \log \mid V \mid)$</td>
               <td>Loop invariant</td>
               <td><button type="button" className="btn btn-primary" onClick={() => this.navigate('dijkstras', Category.Graphs)}>View</button></td>
             </tr>
@@ -146,14 +147,14 @@ class App extends React.Component<{}, { screen: Pages,  category: Category }> {
             <tr>
               <th scope="row">Prim's MST Algorithm</th>
               <td>An algorithm for finding the Minimum Spanning Tree of a graph.</td>
-              <td>$O(e \log v)$</td>
+              <td>$O(\mid E \mid \log \mid V \mid)$</td>
               <td>Greedy stays ahead</td>
               <td><button type="button" className="btn btn-primary" onClick={() => this.navigate('prims', Category.Graphs)}>View</button></td>
             </tr>
             <tr>
               <th scope="row">Kruskal's MST Algorithm</th>
               <td>An algorithm for finding the Minimum Spanning Tree of a graph. Also includes notes on the reverse-delete algorithm.</td>
-              <td>$O(e \log e)$</td>
+              <td>$O(\mid E \mid \log \mid E \mid)$</td>
               <td>Exchange argument</td>
               <td><button type="button" className="btn btn-primary" onClick={() => this.navigate('kruskals', Category.Graphs)}>View</button></td>
             </tr>
@@ -221,21 +222,21 @@ class App extends React.Component<{}, { screen: Pages,  category: Category }> {
           <tbody>
             <tr>
               <th scope="row">Weighted interval scheduling</th>
-              <td>For a set of jobs with weights, find the maximum-weight subset of mutually-compatible jobs.</td>
+              <td>For a set of $n$ jobs with weights, find the maximum-weight subset of mutually-compatible jobs.</td>
               <td>$O(n \log n)$</td>
               <td>Optimal substructure</td>
               <td><button type="button" className="btn btn-primary" onClick={() => this.navigate('weighted-interval-scheduling', Category.DynamicProgramming)}>View</button></td>
             </tr>
             <tr>
               <th scope="row">Knapsack algorithm</th>
-              <td>For a set of items, each with a value and weight, find the maximum total value of items that can be stored without exceeding some total weight.</td>
+              <td>For a set of $n$ items, each with a value and weight, find the maximum total value of items that can be stored without exceeding some total weight $W$.</td>
               <td>$\Theta(nW)$</td>
               <td>Optimal substructure</td>
               <td><button type="button" className="btn btn-primary" onClick={() => this.navigate('knapsack', Category.DynamicProgramming)}>View</button></td>
             </tr>
             <tr>
               <th scope="row">Sequence alignment</th>
-              <td>Find an alignment between two strings that minimises the edit distance.</td>
+              <td>Find an alignment between two strings (with lengths $m, n$) that minimises the edit distance between them.</td>
               <td>$\Theta(mn)$</td>
               <td>Optimal substructure</td>
               <td><button type="button" className="btn btn-primary" onClick={() => this.navigate('sequence-alignment', Category.DynamicProgramming)}>View</button></td>
@@ -243,16 +244,16 @@ class App extends React.Component<{}, { screen: Pages,  category: Category }> {
             <tr>
               <th scope="row">Shortest path (graph with negative weights)</th>
               <td>Find the shortest path between nodes when the graph contains negative edge weights.</td>
-              <td>$\Theta(ev)$</td>
+              <td>$\Theta(\mid E \mid \mid V \mid)$</td>
               <td>Optimal substructure</td>
               <td><button type="button" className="btn btn-primary" onClick={() => this.navigate('shortest-neg-weights', Category.DynamicProgramming)}>View</button></td>
             </tr>
             <tr>
               <th scope="row">Bellman-Ford-Moore (shortest path)</th>
               <td>Find the shortest path between nodes when the graph contains negative edge weights, in linear space.</td>
-              <td>$\Theta(ev)$</td>
-              <td>Optimal substructure</td>
-              <td><button type="button" className="btn btn-primary">View</button></td>
+              <td>$\Theta(\mid E \mid \mid V \mid)$</td>
+              <td>Induction</td>
+              <td><button type="button" className="btn btn-primary" onClick={() => this.navigate('bfm', Category.DynamicProgramming)}>View</button></td>
             </tr>
             <tr>
               <th scope="row">Bellman-Ford-Moore (negative cycles)</th>
