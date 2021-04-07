@@ -32,7 +32,8 @@ export type Pages = 'index' |
   'knapsack' |
   'sequence-alignment' |
   'shortest-neg-weights' |
-  'bfm';
+  'bfm' |
+  'bfm-cycles';
 
 export enum Category {
   None,
@@ -243,14 +244,14 @@ class App extends React.Component<{}, { screen: Pages,  category: Category }> {
             </tr>
             <tr>
               <th scope="row">Shortest path (graph with negative weights)</th>
-              <td>Find the shortest path between nodes when the graph contains negative edge weights.</td>
+              <td>Find the shortest path from a source to a destination when the graph contains negative edge weights.</td>
               <td>$\Theta(\mid E \mid \mid V \mid)$</td>
               <td>Optimal substructure</td>
               <td><button type="button" className="btn btn-primary" onClick={() => this.navigate('shortest-neg-weights', Category.DynamicProgramming)}>View</button></td>
             </tr>
             <tr>
               <th scope="row">Bellman-Ford-Moore (shortest path)</th>
-              <td>Find the shortest path between nodes when the graph contains negative edge weights, in linear space.</td>
+              <td>Find the shortest path from a source to a destination when the graph contains negative edge weights, in linear space.</td>
               <td>$\Theta(\mid E \mid \mid V \mid)$</td>
               <td>Induction</td>
               <td><button type="button" className="btn btn-primary" onClick={() => this.navigate('bfm', Category.DynamicProgramming)}>View</button></td>
@@ -258,9 +259,9 @@ class App extends React.Component<{}, { screen: Pages,  category: Category }> {
             <tr>
               <th scope="row">Bellman-Ford-Moore (negative cycles)</th>
               <td>Detect negative cycles in a graph.</td>
-              <td>TODO</td>
-              <td>TODO</td>
-              <td><button type="button" className="btn btn-primary">View</button></td>
+              <td>$\Theta(\mid E \mid \mid V \mid)$</td>
+              <td>Induction</td>
+              <td><button type="button" className="btn btn-primary" onClick={() => this.navigate('bfm-cycles', Category.DynamicProgramming)}>View</button></td>
             </tr>
           </tbody>
         </table>
@@ -311,7 +312,7 @@ class App extends React.Component<{}, { screen: Pages,  category: Category }> {
               height="30"
               className="d-inline-block align-top"
             />{' '}
-            Algorithm implementations
+            Algorithms and their implementations
           </Navbar.Brand>
           <Breadcrumb className="inline-float">
             <Breadcrumb.Item href="#" onClick={() => this.navigate('index', Category.None)}>Home</Breadcrumb.Item>

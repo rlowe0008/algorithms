@@ -74,6 +74,9 @@ import BFMPseudocode from './Algorithms/BFM/Pseudocode';
 import BFMComplexity from './Algorithms/BFM/Complexity';
 import BFMCorrectness from './Algorithms/BFM/Correctness';
 import BFM from './Algorithms/BFM/Implementation';
+import BFMCyclesExplanation from './Algorithms/BFMCycles/Explanation';
+import BFMCycles from './Algorithms/BFMCycles/Implementation';
+import BFMCyclesPseudocode from './Algorithms/BFMCycles/Pseudocode';
 
 interface Props {
   selectedAlgorithm: Pages;
@@ -237,7 +240,7 @@ const descriptors: AlgorithmDescriptorSet = {
   },
   'shortest-neg-weights': {
     name: "Shortest path (graph with negative weights)",
-    description: "Find the shortest path between nodes when the graph contains negative edge weights.",
+    description: "Find the shortest path from a source to a destination when the graph contains negative edge weights.",
     explanation: <ShortestNegWeightsExplanation />,
     complexity: String.raw`\Theta(\mid E \mid \mid V \mid)`,
     complexityProof: <ShortestNegWeightsComplexity />,
@@ -247,13 +250,23 @@ const descriptors: AlgorithmDescriptorSet = {
   },
   'bfm': {
     name: "Bellman-Ford-Moore algorithm",
-    description: "Find the shortest path between nodes when the graph contains negative edge weights (in linear space).",
+    description: "Find the shortest path from a source to a destination when the graph contains negative edge weights (in linear space).",
     explanation: <BFMExplanation />,
     complexity: String.raw`\Theta(\mid E \mid \mid V \mid)`,
     complexityProof: <BFMComplexity />,
     correctnessProof: <BFMCorrectness />,
     pseudocode: <BFMPseudocode />,
     algorithm: <BFM />
+  },
+  'bfm-cycles': {
+    name: "Bellman-Ford-Moore algorithm (negative cycles)",
+    description: "Given a digraph $G=(V,E)$ with edge lengths $l_{vw}$, find a negative cycle if one exists.",
+    explanation: <BFMCyclesExplanation />,
+    complexity: String.raw`\Theta(\mid E \mid \mid V \mid)`,
+    complexityProof: "By Bellman-Ford-Moore algorithm.",
+    correctnessProof: "See proof of Bellman-Ford-Moore. Proof that this algorithm finds negative cycles is given above.",
+    pseudocode: <BFMCyclesPseudocode />,
+    algorithm: <BFMCycles />
   }
 };
 
