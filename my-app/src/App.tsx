@@ -9,6 +9,7 @@ import { Container } from 'react-bootstrap';
 import $ from './Math';
 import BigO from './Pages/BigO';
 import Intractability from './Pages/Intractability';
+import Graphs from './Pages/Graphs';
 
 interface Props {
   
@@ -33,7 +34,8 @@ export type Pages = 'index' |
   'sequence-alignment' |
   'shortest-neg-weights' |
   'bfm' |
-  'bfm-cycles';
+  'bfm-cycles' |
+  'graphs';
 
 export enum Category {
   None,
@@ -80,7 +82,7 @@ class App extends React.Component<{}, { screen: Pages,  category: Category }> {
     const pageContent = this.state.screen === 'index' ? 
       <>
         <h1>Algorithms</h1>
-        <p>TODO: Space complexity, common usage, clear input/output for ALL (update the type for description field)</p>
+        <p>TODO: Space complexity, common usage, clear input/output for ALL (update the type for description field). Also fix images. Then continue notes on additional algorithms</p>
         <h2>Greedy algorithms</h2>
         <p>Greedy algorithms make the locally-optimal choice at each stage.</p>
         <h3>Scheduling algorithms</h3>
@@ -283,6 +285,11 @@ class App extends React.Component<{}, { screen: Pages,  category: Category }> {
               <td><button type="button" className="btn btn-primary" onClick={() => this.navigate('big-o', Category.Theory)}>View</button></td>
             </tr>
             <tr>
+              <th scope="row">Graphs</th>
+              <td>Representing graphs and common graph algorithms</td>
+              <td><button type="button" className="btn btn-primary" onClick={() => this.navigate('graphs', Category.Theory)}>View</button></td>
+            </tr>
+            <tr>
               <th scope="row">Intractability</th>
               <td>P and NP hardness and completeness.</td>
               <td><button type="button" className="btn btn-primary" onClick={() => this.navigate('intractability', Category.Theory)}>View</button></td>
@@ -293,6 +300,8 @@ class App extends React.Component<{}, { screen: Pages,  category: Category }> {
         <BigO />
       : this.state.screen === 'intractability' ?
         <Intractability />
+      : this.state.screen === 'graphs' ?
+        <Graphs />
       :
       <Algorithm selectedAlgorithm={this.state.screen} />;
 
