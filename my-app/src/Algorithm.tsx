@@ -85,6 +85,11 @@ interface Props {
 type AlgorithmDescriptor = {
   name: string;
   description: string;
+  summary?: {
+    input: string;
+    output: string;
+    uses: string[];
+  }
   explanation: string | JSX.Element;
   complexity: string;
   complexityProof: string | JSX.Element | undefined;
@@ -101,6 +106,11 @@ const descriptors: AlgorithmDescriptorSet = {
   'interval-scheduling': {
     name: "Earliest-finish-time-first for interval scheduling",
     description: "There is a set of $n$ items where each one occupies some interval, each with a start time and finish time. Items are compatible if they do not overlap. Find the maximum subset of mutually-compatible items.",
+    summary: {
+      input: "A collection of jobs with starting and finishing times (pairs $[s_j, f_j]$)",
+      output: "The largest subset of jobs that do not overlap",
+      uses: ["Scheduling jobs"]
+    },
     explanation: <IntervalSchedulingExplanation />,
     complexity: String.raw`O(n \log n)`,
     complexityProof: <IntervalSchedulingComplexity />,
@@ -111,6 +121,11 @@ const descriptors: AlgorithmDescriptorSet = {
   'interval-partitioning': {
     name: "Earliest-start-time-first for interval partitioning",
     description: "There is a set of $n$ items where each one occupies some interval, each with a start time and finish time. Partition the set of items such that no two items overlap using the minimum number of rows.",
+    summary: {
+      input: "A collection of jobs with starting and finishing times (pairs $[s_j, f_j]$)",
+      output: "The smallest number of rows such that each job can be ran without overlaps",
+      uses: ["Scheduling workloads", "scheduling rooms"]
+    },
     explanation: <IntervalPartitioningExplanation />,
     complexity: String.raw`O(n \log n)`,
     complexityProof: <IntervalPartitioningComplexity />,
@@ -121,6 +136,11 @@ const descriptors: AlgorithmDescriptorSet = {
   'minimising-lateness': {
     name: "Earliest-deadline-first for minimising lateness",
     description: "We have a single resource that can complete jobs. We need to schedule $n$ jobs for this resource to minimise the maximum lateness across the jobs.",
+    summary: {
+      input: "A set of jobs, each requiring $t_j$ units of processing time and a due time $d_j$",
+      output: "A schedule of jobs to minimise the maximum lateness across all jobs. Each job is assigned a start time $s_j$, hence job $j$ finishes at $f_j = s_j + t_j$. Lateness for job $j$ is $l_j = max(0, f_j - d_j)$",
+      uses: ["CPU scheduling", "work scheduling"]
+    },
     explanation: <MinimisingLatenessExplanation />,
     complexity: String.raw`O(n \log n)`,
     complexityProof: "This algorithm runs entirely on the basis of scheduling jobs that need to finished sooner. The initial sort is the most complex part.",
@@ -131,6 +151,11 @@ const descriptors: AlgorithmDescriptorSet = {
   'dijkstras': {
     name: "Dijkstra's algorithm for shortest paths",
     description: "Given a directed graph with no negative edges, find the shortest path between some source node and all other nodes in the graph.",
+    summary: {
+      input: "A weighted, directed graph $G=(V, E)$ with no negative edges and a source node $s$",
+      output: String.raw`Shortest $s \rightarrow v$ path for all vertices $v \in V$`,
+      uses: ["Mapping", "IP routing"]
+    },
     explanation: <DijkstrasExplanation />,
     complexity: String.raw`O(\mid E \mid \log \mid V \mid)`,
     complexityProof: <DijkstrasComplexity />,
@@ -141,6 +166,11 @@ const descriptors: AlgorithmDescriptorSet = {
   'general-mst': {
     name: "General MST Algorithm",
     description: "A generic algorithm for finding the Minimum Spanning Tree of a graph.",
+    summary: {
+      input: "A weighted, undirected graph $G=(V,E)$",
+      output: "A minimum spanning tree of $G$",
+      uses: ["Computer networks", "electricity grids"]
+    },
     explanation: <GeneralMSTExplanation />,
     complexity: "N/A",
     complexityProof: undefined,
@@ -151,6 +181,11 @@ const descriptors: AlgorithmDescriptorSet = {
   'prims': {
     name: "Prim's Algorithm",
     description: "Find the minimum spanning tree for some weighted, undirected graph, by applying the Blue Rule (fundamental cutset)",
+    summary: {
+      input: "A weighted, undirected graph $G=(V,E)$",
+      output: "A minimum spanning tree of $G$",
+      uses: ["Computer networks", "electricity grids"]
+    },
     explanation: <PrimsExplanation />,
     complexity: String.raw`O(\mid E \mid \log \mid V \mid)`,
     complexityProof: "By the same priority queue method as Dijkstra's algorithm.",
@@ -161,6 +196,11 @@ const descriptors: AlgorithmDescriptorSet = {
   'kruskals': {
     name: "Kruskal's Algorithm",
     description: "Find the minimum spanning tree for some weighted, undirected graph, by applying the Red Rule (fundamental cycle)",
+    summary: {
+      input: "A weighted, undirected graph $G=(V,E)$",
+      output: "A minimum spanning tree of $G$",
+      uses: ["Computer networks", "electricity grids"]
+    },
     explanation: <KruskalsExplanation />,
     complexity: String.raw`O(\mid E \mid \log \mid E \mid)`,
     complexityProof: <KruskalsComplexity />,
@@ -171,6 +211,11 @@ const descriptors: AlgorithmDescriptorSet = {
   'binary-search': {
     name: "Binary search",
     description: "Given a sorted array $A$ of $n$ elements, find the position of a target element $T$.",
+    summary: {
+      input: "A sorted array $A$ of elements orderable by some total order, and an element $x$",
+      output: "The index of $x$ in $A$",
+      uses: ["Quick search"]
+    },
     explanation: "Find the index of some target element in a sorted list. Usage: Finding values in a list, seeing if values exist in a list, set operations.",
     complexity: String.raw`O(\log n)`,
     complexityProof: <BinarySearchComplexity />,
@@ -181,7 +226,12 @@ const descriptors: AlgorithmDescriptorSet = {
   'mergesort': {
     name: "Mergesort",
     description: "Given a list $L$ of $n$ elements, rearrange them in ascending order.",
-    explanation: "Input: a list of elements and some total order by which they can be arranged. Output: sorted list. This algorithm works by splitting the input list in two, recursively sorting both halves, then merging the two halves to make a sorted whole.",
+    summary: {
+      input: "An unsorted list $A$ of elements, orderable by some total order",
+      output: "$A$ sorted by the total order",
+      uses: ["Sorting"]
+    },
+    explanation: "This algorithm works by splitting the input list in two, recursively sorting both halves, then merging the two halves to make a sorted whole.",
     complexity: String.raw`O(n \log n)`,
     complexityProof: <MergesortComplexity />,
     correctnessProof: <MergesortProof />,
@@ -191,6 +241,11 @@ const descriptors: AlgorithmDescriptorSet = {
   'closest-points': {
     name: "Closest pair of points",
     description: "Given $n$ points in the plane, find a pair of points with the smallest Euclidean distance between them.",
+    summary: {
+      input: "A set of points in 2D space",
+      output: "The distance between the closest pair of points in the set of points",
+      uses: ["Find smallest distance between any pair of points in 2D space"]
+    },
     explanation: <ClosestPointsExplanation />,
     complexity: String.raw`O(n \log n)`,
     complexityProof: <ClosestPointsComplexity />,
@@ -201,6 +256,11 @@ const descriptors: AlgorithmDescriptorSet = {
   'karatsuba': {
     name: "Karatsuba's integer multiplication algorithm",
     description: "Given two $n$-bit integers $x,y$, multiply them together (at a binary level).",
+    summary: {
+      input: "Two n-bit integers $x, y$",
+      output: String.raw`The result of $x \times y$ (binary)`,
+      uses: ["Integer squaring", "division and modulus", "square root"]
+    },
     explanation: <KaratsubaExplanation />,
     complexity: String.raw`O(n^{1.585})`,
     complexityProof: <KaratsubaComplexity />,
@@ -211,6 +271,11 @@ const descriptors: AlgorithmDescriptorSet = {
   'weighted-interval-scheduling': {
     name: "Weighted interval scheduling",
     description: "For a set of $n$ jobs with weights, find the maximum-weight subset of mutually-compatible jobs.",
+    summary: {
+      input: "A collection of jobs with starting and finishing times, as well as weights: $(s_j, f_j, w_j)$",
+      output: "The maximum-weight subset of mutually-compatible jobs",
+      uses: ["Placing cafes along a motorway to maximise profit", "scheduling tasks", "anything over an interval with cost"]
+    },
     explanation: <WISExplanation />,
     complexity: String.raw`O(n \log n)`,
     complexityProof: <WISComplexity />,
@@ -221,6 +286,11 @@ const descriptors: AlgorithmDescriptorSet = {
   'knapsack': {
     name: "Knapsack algorithm",
     description: "For a set of $n$ items, each with a value and weight, find the maximum total value of items that can be stored without exceeding some total weight $W$.",
+    summary: {
+      input: "A set of items with a value and weight ($v_i, w_i$) and a weight limit $W$",
+      output: "The maximum value of items that can be packed without exceeding the weight limit",
+      uses: ["Choosing exam questions with max weight and fewest topics to revise"]
+    },
     explanation: <KnapsackExplanation />,
     complexity: String.raw`\Theta(n W)`,
     complexityProof: <KnapsackComplexity />,
@@ -231,6 +301,11 @@ const descriptors: AlgorithmDescriptorSet = {
   'sequence-alignment': {
     name: "Sequence alignment",
     description: "Find an alignment between two strings (of lengths $m, n$) that minimises the edit distance between them.",
+    summary: {
+      input: String.raw`Two strings $X,Y$, a mismatch penalty value $\alpha$, gap penalty value $\delta$`,
+      output: "Minimum possible edit distance for any alignment of $X, Y$",
+      uses: ["Comparing amino-acid sequences", "distance cost between strings in natural language"]
+    },
     explanation: <SequenceAlignmentExplanation />,
     complexity: String.raw`\Theta(mn)`,
     complexityProof: String.raw`For strings of length $m,n$: $\Theta(mn)$`,
@@ -241,6 +316,11 @@ const descriptors: AlgorithmDescriptorSet = {
   'shortest-neg-weights': {
     name: "Shortest path (graph with negative weights)",
     description: "Find the shortest path from a source to a destination when the graph contains negative edge weights.",
+    summary: {
+      input: "A weighted, directed graph $G = (V, E)$, potentially with negative edge weights, a source vertex $s$, and a destination vertex $t$",
+      output: String.raw`Shortest $s \rightarrow t$ path in $G$ (or none if there exists a negative cycle in $G$)`,
+      uses: ["Shortest paths in graph with negative edge weights"]
+    },
     explanation: <ShortestNegWeightsExplanation />,
     complexity: String.raw`\Theta(\mid E \mid \mid V \mid)`,
     complexityProof: <ShortestNegWeightsComplexity />,
@@ -251,6 +331,11 @@ const descriptors: AlgorithmDescriptorSet = {
   'bfm': {
     name: "Bellman-Ford-Moore algorithm",
     description: "Find the shortest path from a source to a destination when the graph contains negative edge weights (in linear space).",
+    summary: {
+      input: "A weighted, directed graph $G = (V, E)$, potentially with negative edge weights, a source vertex $s$, and a destination vertex $t$",
+      output: String.raw`Shortest $s \rightarrow t$ path in $G$ (or none if there exists a negative cycle in $G$)`,
+      uses: ["Shortest paths in graph with negative edge weights", "negative cycle checking"]
+    },
     explanation: <BFMExplanation />,
     complexity: String.raw`\Theta(\mid E \mid \mid V \mid)`,
     complexityProof: <BFMComplexity />,
@@ -261,6 +346,11 @@ const descriptors: AlgorithmDescriptorSet = {
   'bfm-cycles': {
     name: "Bellman-Ford-Moore algorithm (negative cycles)",
     description: "Given a digraph $G=(V,E)$ with edge lengths $l_{vw}$, find a negative cycle if one exists.",
+    summary: {
+      input: "A weighted, directed graph $G = (V, E)$, potentially with negative edge weights, a source vertex $s$, and a destination vertex $t$",
+      output: String.raw`True if there is a negative cycle in the graph, else false`,
+      uses: ["Currency arbitrage"]
+    },
     explanation: <BFMCyclesExplanation />,
     complexity: String.raw`\Theta(\mid E \mid \mid V \mid)`,
     complexityProof: "By Bellman-Ford-Moore algorithm.",
@@ -283,6 +373,13 @@ class Algorithm extends React.Component<Props> {
           { selectedDescriptor.description }
         </div>
         <h3>Explanation</h3>
+        { selectedDescriptor.summary && <>
+          <ul>
+            <li><b>Input</b>: {selectedDescriptor.summary.input}</li>
+            <li><b>Output</b>: {selectedDescriptor.summary.output}</li>
+            <li><b>Usage</b>: {selectedDescriptor.summary.uses.join(', ')}</li>
+          </ul>
+        </> }
         { selectedDescriptor.explanation }
         <h3>Algorithm</h3>
         { selectedDescriptor.pseudocode }

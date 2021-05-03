@@ -35,6 +35,17 @@ class KnapsackPseudocode extends React.Component {
           <li>Return $M[n,W]$</li>
         </ul>
         <img src={AlgorithmImage} className="img-fluid" alt="Knapsack algorithm" />
+
+        <p>To find the set of items with maximum value, work back from the final entry in $M$:</p>
+        <ul>
+          <li>Set $w = M[n, W]$</li>
+          <li>For $i=n$ to $1$:
+            <ul>
+              <li>If $M[i, w] \gt M[i - 1, w]$: include $i$, set $w = w - w_i$ to continue adding items with the weight limit when including $i$</li>
+              <li>Else, do not include $i$</li>
+            </ul>
+          </li>
+        </ul>
       </div>
     );
   }

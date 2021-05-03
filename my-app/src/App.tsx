@@ -82,7 +82,6 @@ class App extends React.Component<{}, { screen: Pages,  category: Category }> {
     const pageContent = this.state.screen === 'index' ? 
       <>
         <h1>Algorithms</h1>
-        <p>TODO: Space complexity, common usage, clear input/output for ALL (update the type for description field). Also fix images. Then continue notes on additional algorithms</p>
         <h2>Greedy algorithms</h2>
         <p>Greedy algorithms make the locally-optimal choice at each stage.</p>
         <h3>Scheduling algorithms</h3>

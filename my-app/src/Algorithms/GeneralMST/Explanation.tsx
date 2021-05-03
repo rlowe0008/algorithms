@@ -14,10 +14,6 @@ class GeneralMSTExplanation extends React.Component {
         <CyclesCutsets />
         <RedRule />
         <BlueRule />
-        <ul>
-          <li><b>Input</b>: A weighted, undirected graph $G = (V, E)$</li>
-          <li><b>Output</b>: A minimum spanning tree of $G$</li>
-        </ul>
         <img src={ExampleImage} className="img-fluid" alt="An example input and output" />
       </div>
     );

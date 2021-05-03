@@ -9,7 +9,7 @@ class WISPseudocode extends React.Component {
       <div>
         <ul>
           <li>Let $p(j)$ denote the largest index $i \lt j$ such that job $i$ is compatible with job $j$</li>
-          <li>Let $OPT(j)$ denote the maximum _weight_ of any subset of compatible jobs for the subproblem consisting only of job $1,2,..., j$ - in other words, the solution when only considering jobs up to $j$.</li>
+          <li>Let $OPT(j)$ denote the maximum weight of any subset of compatible jobs for the subproblem consisting only of job $1,2,..., j$ - in other words, the solution when only considering jobs up to $j$.</li>
         </ul>
         <p>Our algorithm will find $OPT(n)$, the maximum weight of <i>any</i> subset of mutually compatible jobs (up to $n$).</p>
         <p>In the optimal solution, we include a job if it will increase the maximum-weight subset of mutually-compatible jobs, otherwise we do not include it. For any sub-solution $OPT(j)$, up to some job $j$, either:</p>
@@ -65,6 +65,12 @@ class WISPseudocode extends React.Component {
             </ul>
           </li>
         </ul>
+        <p>To find the optimal schedule for which $M$ is maximised: in each iteration:</p>
+        <ul>
+          <li>If $w_j + M[p[j]] \gt M[j-1]$: Use $j$ and $p[j]$ for the solution $\rightarrow$ <code>solution[j] = solution[p[j]] ∪ j</code></li>
+          <li>Else: Do not use $j$; use the previous solution $\rightarrow$ <code>solution[j] = solution[j-1]</code></li>
+        </ul>
+
         <img src={AlgorithmImage} className="img-fluid" alt="Weighted interval scheduling" />
       </div>
     );

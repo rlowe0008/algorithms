@@ -8,7 +8,7 @@ class SequenceAlignmentPseudocode extends React.Component {
     return (
       <div>
         <p>Let <$ math="\alpha_{x_iy_j}" /> denote the mis-match penalty between $x_i, y_j$.</p>
-        <p>The sub-problem $i, j$ is the optimal alignment between the substrings $X_i, Y_j$ of $X, Y$ up to characters $i$ and $j$ respectively.</p>
+        <p>The sub-problem $i, j$ is the optimal alignment between the substrings $X_i, Y_j$ of $X, Y$ up to characters $i$ and $j$ respectively. Hence let $OPT(i, j)$ denote the cost of the optimal alignment for substrings $X_i, Y_j$ up to characters $i$ and $j$, respectively.</p>
         <p>The optimal alignments for the sub-problem $i,j$ ends with either:</p>
         <ul>
           <li>The last characters of $X,Y$ are aligned (with potential mis-match):

@@ -40,7 +40,7 @@ class ShortestNegWeightsPseudocode extends React.Component {
         <h4>Finding shortest paths</h4>
         <p>To return the shortest paths, either:</p>
         <ol>
-          <li>Maintain <code>successor[i,v]</code>, pointing to the next node on a shortest $v \rightarrow t$ path using $\le i$ edges</li>
+          <li>Maintain <code>successor[i,v]</code>, pointing to the next node on a shortest $v \rightarrow t$ path using $\le i$ edges, or</li>
           <li>Compute optimal lengths $M[i,v]$ and consider only edges with <$ math="M[i,v]=M[i-1, w] + l_{vw}" />. Any directed path in this subgraph is a shortest path.</li>
         </ol>
         <h4>Improvements</h4>

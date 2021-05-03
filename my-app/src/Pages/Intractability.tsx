@@ -10,6 +10,9 @@ import IS3Sat from './ind-set-3sat.png';
 import IS3Sat2 from './ind-set-3sat-2.png';
 import SSReduction from './subset-sum-reduction.png';
 import SS1 from './subset-sum-eg1.png';
+import HCycles from './hamiltonian-cycles.png';
+import CliqueReduction from './clique-reduction.png';
+import SubgraphReduction from './sparse-subgraph.png';
 import $ from '../Math';
 import InfoBubble from '../Algorithms/Common/InfoBubble';
 
@@ -29,7 +32,7 @@ class Intractability extends React.Component {
 
         <h3>Reductions</h3>
         <p><b>Oracle</b>: an oracle for problem $Y$ is a computational model that solves instances of $Y$ in a single step.</p>
-        <p>Suppose we can solve problem $Y$ in polynomial time. Then some other problem $X$ <b>polynomial-time reduces</b> to $Y$ if arbtirary instances of $X$ can be solved using:</p>
+        <p>Suppose we can solve problem $Y$ in polynomial time. Then some other problem $X$ <b>polynomial-time reduces</b> to $Y$ if arbitrary instances of $X$ can be solved using:</p>
         <ol>
           <li>Polynomially-many computational steps, and</li>
           <li>Polynomially-many calls to the oracle that solves problem $Y$ (each instance solved by the oracle must be of polynomial size).</li>
@@ -101,7 +104,7 @@ class Intractability extends React.Component {
             <li><$ math="S_1 = \{3, 7\}" /></li>
             <li><$ math="S_2 = \{2, 4\}" /></li>
             <li><$ math="S_3 = \{3, 4, 5, 6\}" /></li>
-            <li><$ math="S_4 \{5\}" /></li>
+            <li><$ math="S_4 = \{5\}" /></li>
             <li><$ math="S_5 = \{1\}" /></li>
             <li><$ math="S_6 = \{1,2,6,7\}" /></li>
           </ul>
@@ -249,6 +252,11 @@ class Intractability extends React.Component {
           </ul>
         </InfoBubble>
 
+        <InfoBubble title="Subset-sum $\le_P$ Knapsack">
+          <p>Solve arbitrary instances $(S, k)$ of subset sum by calling the oracle for knapsack with a weight limit $W=k$ and value target $V=k$, using a set of items $I$ with $I_j = (S_j, S_j)$ for all $S_j$ in $S$; in other words, the weight limit and target value for knapsack equals the subset sum target, and each integer $S_i \in S$ is an item with weight and value $S_i$.</p>
+          <p>Recall that the knapsack algorithm has complexity $\Theta(nW)$. As $W$ is given in binary, the actual running time can be considered exponential in input size.</p>
+        </InfoBubble>
+
         <h3>P and NP</h3>
         <p><b>P</b>: The set of problems such that an algorithm exists to solve the problem in polynomial time.</p>
         <p><b>NP</b>: The set of problems such that a <i>verifier</i> exists computable in polynomial time for <i>positive</i> instances of the problem.</p>
@@ -261,7 +269,7 @@ class Intractability extends React.Component {
         <p>All problems in P are also in NP: if we have a polynomial-time algorithm to <i>solve</i> a problem then we can create a polynomial-time verifier using this original algorithm. Hence: $$P \subseteq NP$$</p>
 
         <h4>P, NP, EXP</h4>
-        <p><b>EXP</b>: Decision problems for which there exists an exponential-time algirithm.</p>
+        <p><b>EXP</b>: Decision problems for which there exists an exponential-time algorithm.</p>
         <p>$NP \subseteq EXP$: Consider some problem $X \in NP$. Then there exists a poly-time certifier $C(s,t)$ for $X$ where $t$ has size $\le p(\mid s \mid)$ for some polynomial $p$. Then instance $s$ can be solved by running $C(s, t)$ on all binary strings $t$ satisfying $\mid t \mid \le p(\mid s \mid)$. If $C(s, t)$ returns YES for any of these certificates then return YES.</p>
 
         <p>Fact: P $\ne$ EXP. Then either P $\ne$ NP, or $NP \ne EXP$, or both. Example: there currently exists no poly-time algorithm for 3-SAT, so it is intractable.</p>
@@ -271,6 +279,8 @@ class Intractability extends React.Component {
           <li>If $P = NP$: Then there exists efficient algorithms for all problems in NP</li>
           <li>If $P \ne NP$: Then it is not possible to create an efficient algorithm for these problems</li>
         </ul>
+
+        <p><b>Co-NP</b>: Like NP but for the complemented decision problem. Example: set cover - for every combination of subsets, is it <i>impossible</i> to cover all elements?</p>
 
         <h4>Polynomial transformations</h4>
         <p>Problem $X$ polynomial <i>transforms</i> to problem $Y$ if given any instance $x$ of $X$, we can construct an instance $y$ of $Y$ such that $x$ is a yes instance of $X$ iff $y$ is a yes instance of $Y$.</p>
@@ -301,6 +311,14 @@ class Intractability extends React.Component {
           <li>Vertex colouring</li>
           <li>Independent set</li>
         </ul>
+
+        <p>There exists problems that are:</p>
+        <ul>
+          <li>In NP but not NP hard: All problems in P are verifiable in polynomial time but are not known to be NP hard (hence not NP complete)</li>
+          <li>NP hard but not in NP: The halting problem is NP hard but not verifiable in polynomial time (hence not NP complete)</li>
+        </ul>
+
+        <a title="Behnam Esfahbod, CC BY-SA 3.0 &lt;https://creativecommons.org/licenses/by-sa/3.0&gt;, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:P_np_np-complete_np-hard.svg"><img width="512" alt="P np np-complete np-hard" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/P_np_np-complete_np-hard.svg/512px-P_np_np-complete_np-hard.svg.png" /></a>
 
         <p>To prove a problem $X$ is NP-complete:</p>
         <ol>
@@ -333,6 +351,71 @@ class Intractability extends React.Component {
           <li>Discrete-log</li>
           <li>Graph-isomorphism</li>
         </ul>
+
+        <h3>Reductions</h3>
+        <h4>Covering problems</h4>
+        <p>A <b>covering problem</b> is a problem that asks whether a certain structure "covers" another:</p>
+        <ul>
+          <li>Set cover: Given a set $U$ of elements, a collection $S$ of subsets of $U$, and an integer $k$, are there $\le k$ subsets whose union is equal to $U$?</li>
+          <li>Edge cover: Given a graph $G=(V, E)$ and integer $k$, is there a set of $\le k$ edges such that each vertex is incident with at least one edge in the set?</li>
+          <li>Vertex cover: Given a graph $G=(V, E)$ and integer $k$, is there a set of $\le k$ vertices such that each edge is incident with at least one vertex in the set?</li>
+        </ul>
+        <p>Covering problems reduce to eachother: for example, vertex cover and set cover (see above).</p>
+
+        <h4>Packing problems</h4>
+        <p>A <b>packing problem</b> is a problem that asks whether it is possible to "pack" objects into containers:</p>
+        <ul>
+          <li>Set packing: Given a set $U$ of elements, a collection $S$ of subsets of $U$, and an integer $k$, are there $\ge k$ subsets wose intersection is empty (pairwise disjoint)?</li>
+          <li>Edge matching: Given a graph $G=(V, E)$ and integer $k$, is there a set of $\ge k$ edges such that no two edges are incident to the same vertex?</li>
+          <li>Independent set: Given a graph $G=(V, E)$ and integer $k$, is there a set of $\ge k$ vertices such that no two are adjacent?</li>
+        </ul>
+        <p>Packing problems reduce to eachother: for example, independent set $\le_P$ set packing.</p>
+
+        <InfoBubble title="Independent set $\le_P$ set packing">
+          <p>Given graph $G=(V,E)$ and $k$, construct a collection of sets: for each vertex $v \in V$, <$ math="S_v = \{ (v, u) \mid (v, u) \in E \}" />. Call the oracle for set packing on this collection of sets and $k$. If there exists $\ge k$ subsets whose intersection is empty, then there must exist an independent set of size $\ge k$ in the original graph (intersection empty means no common edges between vertices).</p>
+        </InfoBubble>
+
+        <h4>Duality</h4>
+        <p>Packing and covering problems have a duality:</p>
+        <ul>
+          <li>Set cover and set packing</li>
+          <li>Edge cover and edge matching</li>
+          <li>Vertex cover and independent set</li>
+        </ul>
+        <p>Example: Vertex cover $\equiv_P$ independent set (see above).</p>
+
+        <h3>Examples</h3>
+        <InfoBubble title="Hamiltonian Cycles">
+          <p><b>Hamiltonian cycle problem</b>: Given an undirected graph $G=(V, E)$, does there exist a simple cycle (no repeated vertices) that contains every vertex?</p>
+          <p><b>Directed Hamiltonian cycle problem</b>: Given a directed graph $G=(V, E)$, does there exist a simple directed cycle that contains every vertex?</p>
+          <p>Prove that directed Hamiltonian cycle $\le_P$ Hamiltonian cycle.</p>
+
+          <InfoBubble title="Solution">
+            <p>Given a directed graph $G=(V, E)$, construct an undirected graph $G'$ such that every vertex with both incoming and outgoing nodes is represented by 3 nodes: a node for incoming edges, an inner node, and a node for outgoing edges.</p>
+            <img src={HCycles} className="img-fluid" alt="Hamiltonian cycles" />
+            <p>$G$ has a Hamiltonian cycle iff $G'$ does:</p>
+            <ul>
+              <li>$\Rightarrow$: Suppose $G$ has a directed Hamiltonian cycle $C$. Then $G'$ has an undirected Hamiltonian cycle, following the same order as in $C$.</li>
+              <li>$\Leftarrow$: Suppose $G'$ has an undirected Hamiltonian cycle $C'$. Then $C'$ must visit vertices in order: $B \rightarrow G \rightarrow R \rightarrow B \rightarrow ...$ or $B \rightarrow R \rightarrow G \rightarrow B \rightarrow ...$. The blue vertices make a directed Hamiltonian cycle $C$ in $G$, or the reverse of one.</li>
+            </ul>
+          </InfoBubble>
+        </InfoBubble>
+
+        <InfoBubble title="Clique problem">
+          <p><b>Clique problem</b>: A clique in an undirected graph $G=(V,E)$ is a subset $C \subseteq V$ of vertices such that every pair of vertices is connected by an edge. The clique decision problem is: given a graph $G$ and number $k$, determine if there exists a clique $C$ of size $k$ in $G$.</p>
+          <p>Prove that the clique decision problem is NP-Complete.</p>
+          <InfoBubble title="Solution">
+            <img src={CliqueReduction} className="img-fluid" alt="Clique is NP complete" />
+          </InfoBubble>
+        </InfoBubble>
+
+        <InfoBubble title="Sparse subgraph problem">
+          <p><b>Sparse subgraph problem</b>: Given a graph $G$ and numbers $k, d$, is there a set of $k$ vertices of $G$ such that there are at most $d$ edges between them?</p>
+          <p>Prove that the sparse subgraph problem is NP-Complete.</p>
+          <InfoBubble title="Solution">
+            <img src={SubgraphReduction} className="img-fluid" alt="Sparse subgraph is NP complete" />
+          </InfoBubble>
+        </InfoBubble>
       </div>
     );
   }

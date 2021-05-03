@@ -13,7 +13,6 @@ class SequenceAlignmentExplanation extends React.Component {
         </ul>
         <p>Total penalty / Needleman-Wunsch score: total gap penalty + total character mis-match penalty.</p>
         <img src={EditDistanceImage} className="img-fluid" alt="Example input and output" />
-        <p>Example usage: Comparing amino-acid sequences.</p>
       </div>
     );
   }

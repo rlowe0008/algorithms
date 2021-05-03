@@ -58,13 +58,30 @@ class Graphs extends React.Component {
 
         <h4>Topological orderings</h4>
         <p><b>Directed Acyclic Graph</b>: Directed graph with no cycles.</p>
-        <p><b>Topoligical ordering</b>: Ordering $v_1, v_2, ..., v_n$ of the vertices of a graph such that for every edge $(v_i, v_j)$, $i \lt j$.</p>
+        <p><b>Topological ordering</b>: Ordering $v_1, v_2, ..., v_n$ of the vertices of a graph such that for every edge $(v_i, v_j)$, $i \lt j$.</p>
         <p>Theorem: If a graph has a topological order then it is a DAG.</p>
         <p>Proof: Choose any pair of vertices $v_i, v_j$ where a cycle exists between them. Then there must exist some edge from $(v_a, v_b)$ with $i \le a \lt b \le j$. But there must also exist some edge $(v_c, v_d)$ where $j \le c \lt d \le i$. But it cannot hold that $i \lt j$ and $j \lt i$.</p>
         <p>Theorem: If a graph is a DAG then it has a vertex with no incoming edges.</p>
         <p>Proof: Walk back from some vertex until we reach a vertex we have already visited, which must occur otherwise there exists some vertex with no incoming edges. Then there must exist a cycle in the graph, and it is not a DAG.</p>
         <p>Theorem: If a graph is a DAG then it has a topological ordering.</p>
-        <p>Proof by induction: TODO</p>
+        <p>Proof by induction on number of vertices:</p>
+        <ul>
+          <li>Base: True for 1 vertex</li>
+          <li>Assume true up to $n$ vertices</li>
+          <li>For a DAG with $n \gt 1$ vertices, find vertex $v$ with no incoming edges (which must exist by the theorem above). Then <$ math="G - \{v\}" /> is also a DAG, since deleting $v$ cannot create a cycle, and hence must have a topological ordering (inductive hypothesis). Then place $v$ first in the ordering, and append the ordering of <$ math="G - \{v\}" /></li>
+        </ul>
+
+        <p>Find a topological ordering of some DAG $G$:</p>
+        <ol>
+          <li>Find a vertex $v$ with no incoming edges and put it first</li>
+          <li>Recursively find the topological ordering of <$ math="G - \{v\}" /> and add this ordering after $v$</li>
+        </ol>
+        <p>This can be implemented in <$ math="O(\mid E \mid + \mid V \mid)" /> time:</p>
+        <ul>
+          <li>Maintain a count of incoming edges for each vertex and a set of vertices with no incoming edges</li>
+          <li>Scan the whole graph for the initial vertex $v$ and add it to $S$</li>
+          <li>To remove $v$ from $G$: remove it from $S$. For all edges <$ math="(v, w) \in E" />: decrement the count of incoming edges for $w$, if the number of incoming edges is 0, add $w$ to $S$. Overall this is $O(1)$ for each edge.</li>
+        </ul>
       </div>
     );
   }

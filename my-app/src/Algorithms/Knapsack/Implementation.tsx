@@ -37,7 +37,19 @@ function knapsack(items, W) {
     }
   }
   console.log(M);
-  return M[items.length][W];
+
+  // Find the set that produces max value
+  let solution = [];
+  let weight = W;
+  for (let ix = items.length; ix > 0; ix--) {
+    if (M[ix][weight] > M[ix - 1][weight]) {
+      // Include item
+      solution.push(items[ix - 1]);
+      weight = weight - items[ix - 1].weight;
+    }
+  }
+
+  return { value: M[items.length][W], items: solution };
 }
     `;
 
